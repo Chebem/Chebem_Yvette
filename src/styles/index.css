@@ -1,15 +1,32 @@
 /* GLOBAL STYLES*/
 
-@import './variables.css';
+/* CSS VARIABLES */
+:root {
+    --bg: #F3F2FA;
+    --surface: #FFFFFF;
 
+    --text-main: #0F0E13;
+    --text-muted: #6B7280;
 
-/* Global Reser */
+    --accent: #8A4FFF;
+    --accent-dark: #6D28D9;
 
+    --line: #E1E2EA;
+
+    --font-body: 'Poppins-Variable', sans-serif;
+    --font-heading: 'ClashGrotesk-Variable', sans-serif;
+}
+
+/* Global Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 
@@ -74,4 +91,15 @@ h1, h2, h3, h4
 }
 
 
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--text-main);
+    color: var(--text-main);
+}
+
+.btn-outline:hover {
+    background: var(--accent);
+    border-color: transparent;
+    color: #fff;
+}
 
