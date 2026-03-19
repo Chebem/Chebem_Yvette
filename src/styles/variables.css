@@ -1,0 +1,17 @@
+/* CSS VARIABLES */
+
+:root {
+    --bg: #F3F2FA;
+    --surface: #FFFFFF;
+
+    --text-main: #0F0E13;
+    --text-muted: #6B7280;
+
+    --accent: #8A4FFF;
+    --accent-dark: #6D28D9;
+
+    --line: #E1E2EA;
+
+    --font-body: 'Poppins-Variable', sans-serif;
+    --font-heading: 'ClashGrotesk-Variable', sans-serif;
+}
