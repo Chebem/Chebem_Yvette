@@ -1,62 +1,11 @@
 /* Importing fonts */
 /* Global Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
-}
-
-
-
-:root {
-  --bg: #F3F2FA;
-  --surface: #FFFFFF;
-
-  --text-main: #0F0E13;
-  --text-muted: #6B7280;
-
-  --accent: #8A4FFF;
-  --accent-dark: #6D28D9;
-
-  --line: #E1E2EA;
-
-  --font-body: 'Poppins-Variable', sans-serif;
-  --font-heading: 'ClashGrotesk-Variable', sans-serif;
-}
-
-body, p, li, span, input, textarea
-{
-  font-family: var(--font-body), sans-serif;
-  font-weight: 400;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-h1, h2, h3, h4,
-.navbar a,
-.btn
-{
-  font-family: var(--font-heading), sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-}
-
-
-
-body {
-  line-height: 1.6;
-  background: var(--bg);
-  color: var(--text-main);
-}
-
 
 .hero {
   position: relative;
   min-height: 100vh;
   overflow: hidden;
 }
-
 
 /*hero- background*/
 .hero-bg {
@@ -66,172 +15,8 @@ body {
   z-index: 0;
 }
 
-.hero-title{
-  font-weight: 700
-}
-
-.section-title
-{
-  font-weight: 600;
-}
-
-/* Header */
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 10%;
-  background: var(--surface);
-  color: var(--text-main);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 100;
-  border-bottom: 1px solid var(--line);
-  box-shadow:  0 4px 12px rgba(0,0,0,0.06);
-}
-
-/* NAVBAR (uses your existing class names) */
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  height: 80px;
-
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 0 10%;
-  background: var(--bg);
-  backdrop-filter: blur(12px);
-
-  border-bottom: 1px solid var(--text-main);
-}
-
-.navbar a
-{
-  font-weight: 600;
-  text-decoration: none;
-}
-
-
-.small-text
-{
-  font-weight: 300;
-}
-.logo-container {
-  display: flex;
-  align-items: center;
-  text-decoration: none;
-}
-
-.c-letter {
-  font-weight: 700;
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
-  color: var(--text-main);
-}
-
-.links
-{
-  display: flex;
-  align-items: center;
-  gap: 18px;
-  margin-left: auto;
-}
-
-.links a {
-  font-size: 0.98rem;
-  text-decoration: none;
-  color: var(--text-main);
-  font-weight: 500;
-  opacity: 0.85;
-  position: relative;
-  transition: color 0.3s ease;
-}
-
-.links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -10px;
-  width: 100%;
-  height: 2px;
-  background-color: var(--accent);
-  border-radius: 2px;
-  transform: scaleX(0);
-  opacity: 0;
-  transition: transform 0.4s ease, opacity 0.4s ease;
-}
-
-.links a:hover::after,
-.links a.active::after {
-  transform: scaleX(1);
-  opacity: 1;
-}
-
-.links a:hover {
-  color: var(--accent-dark);
-}
-
-.menu-toggle {
-  margin-left: auto;
-  display: none;
-  font-size: 2rem;
-  color: var(--text-main);
-  cursor: pointer;
-}
-
-@media (max-width: 768px) {
-
-  .navbar {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .logo-container {
-    margin-right: auto;
-  }
-  .menu-toggle {
-    display: flex;
-  }
-
-  .links {
-    position: absolute;
-    top: 80px;
-    right: 16px;
-    left: 10%;
-
-    background-color: var(--surface);
-    border: 1px solid var(--line) ;
-    border-radius: 14px;
-
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 14px;
-    padding: 1rem;
-    display: none;
-
-    box-shadow: 0 12px 30px var(--text-main);
-  }
-  .links a {
-    opacity: 1;
-  }
-
-  .links.active {
-    display: flex;
-  }
-  .home { padding-top: 5.5rem; }
-}
-
 
 /* Home Section */
-
 .hero-box {
   background: rgba(255,255,255,0.5);
   backdrop-filter: blur(12px);
@@ -287,22 +72,6 @@ body {
   color:  var(--text-muted);
 }
 
-.btn {
-  background:  var(--text-main);
-  color:  var(--surface);
-  padding: 0.7rem 1.4rem;
-  border: none;
-  border-radius: 30px;
-  text-transform: uppercase;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
-}
-
-.btn:hover {
-  background: var(--accent-dark);
-  transform: scale(1.05);
-}
 
 .social-icons {
   margin-top: 2rem;
@@ -322,7 +91,6 @@ body {
   background: transparent;
   transition: all 0.3s ease;
 }
-
 
 .social-icon:hover {
   background: var(--accent);
@@ -427,8 +195,6 @@ body {
     margin-top: 1rem;
   }
 }
-
-
 
 
 
@@ -787,8 +553,9 @@ body {
   background-color: var(--accent);
 }
 
-/* Modal Popup */
 
+
+/* Modal Popup */
 .modal {
   position: fixed;
   display: none;
