@@ -78,8 +78,8 @@
 
 @font-face {
     font-family: 'ClashGrotesk-Variable';
-    src: url('../fonts/Clash/ClashGrotesk-Variable.woff2') format('woff2'),
-    url('../fonts/Clash/ClashGrotesk-Variable.woff') format('woff'),
+    src: url('../../fonts/Clash/ClashGrotesk-Variable.woff2') format('woff2'),
+    url('../../fonts/Clash/ClashGrotesk-Variable.woff') format('woff'),
     url('../fonts/Clash/ClashGrotesk-Variable.otf') format('opentype');
     font-weight: 200 700;
     font-style: normal;

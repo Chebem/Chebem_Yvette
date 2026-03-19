@@ -211,9 +211,9 @@
 
 @font-face {
     font-family: 'Poppins-Variable';
-    src: url('../fonts/Poppins/Poppins-Variable.woff2') format('woff2'),
-    url('../fonts/Poppins/Poppins-Variable.woff') format('woff'),
-    url('../fonts/Poppins/Poppins-Variable.ttf') format('truetype');
+    src: url('../../fonts/Poppins/Poppins-Variable.woff2') format('woff2'),
+    url('../../fonts/Poppins/Poppins-Variable.woff') format('woff'),
+    url('../../fonts/Poppins/Poppins-Variable.ttf') format('truetype');
     font-weight: 100 900;
     font-style: normal;
     font-display: swap;
@@ -221,9 +221,9 @@
 
 @font-face {
     font-family: 'Poppins-VariableItalic';
-    src: url('../fonts/Poppins/Poppins-VariableItalic.woff2') format('woff2'),
-    url('../fonts/Poppins/Poppins-VariableItalic.woff') format('woff'),
-    url('../fonts/Poppins/Poppins-VariableItalic.ttf') format('truetype');
+    src: url('../../fonts/Poppins/Poppins-VariableItalic.woff2') format('woff2'),
+    url('../../fonts/Poppins/Poppins-VariableItalic.woff') format('woff'),
+    url('../../fonts/Poppins/Poppins-VariableItalic.ttf') format('truetype');
     font-weight: 100 900;
     font-style: italic;
     font-display: swap;
