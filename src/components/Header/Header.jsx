@@ -1,12 +1,13 @@
-import { NavLink } from 'react-router-dom';
-import './Header.css'
-
-const toogleMenu = () => {
-    const links = document.querySelector('.links');
-    links.classList.toggle('active');
-};
+import { useState } from 'react';
+import './Header.css';
 
 export default function Header() {
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuOpen(prev => !prev);
+    };
+
     return (
         <nav className="navbar">
             <div className="logo-container">
@@ -15,11 +16,11 @@ export default function Header() {
                 </a>
             </div>
 
-            <div className="menu-toggle" onClick="toggleMenu()">
-                <i className="bx bx-menu"></i>
+            <div className="menu-toggle" onClick={toggleMenu}>
+                <i className={menuOpen ? 'bx bx-x' : 'bx bx-menu'}></i>
             </div>
 
-            <div className="links">
+            <div className={`links${menuOpen ? ' active' : ''}`}>
                 <a href="#about">About</a>
                 <a href="#education">Education</a>
                 <a href="#skills">Skills</a>
@@ -27,6 +28,5 @@ export default function Header() {
                 <a href="#contact">Contact</a>
             </div>
         </nav>
-
-    )
+    );
 }
