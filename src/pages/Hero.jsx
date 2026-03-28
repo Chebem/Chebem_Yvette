@@ -82,7 +82,7 @@ function Hero() {
                             aria-label="Notion"
                             className="notion-icon"
                         >
-                            <img src="/assets/icons/notion.svg" alt="Notion" />
+                            <img src="/icons/notion.svg" alt="Notion" />
                         </a>
                     </div>
                 </div>
