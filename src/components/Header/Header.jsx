@@ -1,15 +1,24 @@
-import { useState } from 'react';
-import './Header.css';
+import {useEffect, useState} from 'react';
+import './Header.css'
 
-export default function Header() {
+
+function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     const toggleMenu = () => {
         setMenuOpen(prev => !prev);
     };
 
+    useEffect(() => {
+        const handleScroll = ()  => {
+            setScrolled(window.scrollY > 80);
+        };
+
+    })
+
     return (
-        <nav className="navbar">
+        <nav className="navbar" ${scrolled ? 'scrolled' : ''}>
             <div className="logo-container">
                 <a href="#home" className="logo">
                     <span className="c-letter">Chebem Yvette</span>
@@ -30,3 +39,5 @@ export default function Header() {
         </nav>
     );
 }
+
+export default Header;
