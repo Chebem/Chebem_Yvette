@@ -1,0 +1,84 @@
+/* About Section */
+.about {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    padding: 6rem 10%;
+    color: var(--text-main);
+}
+
+.about-img img {
+    max-width: 280px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px var(--text-main);
+}
+
+.about-content {
+    flex: 1;
+}
+
+.about-content h2 {
+    font-size: 2rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.about-content h3 {
+    font-size: 1.3rem;
+    color: var(--text-main);
+    margin-bottom: 10px;
+}
+
+.about-content p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: var(--text-muted);
+}
+
+.about-content .btn + .btn {
+    margin-left: 1rem;
+}
+
+.resume-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+    .resume-buttons {
+        flex-direction: column;
+    }
+
+    .resume-buttons .btn {
+        width: 100%;
+        text-align: center;
+    }
+    .about-content .btn + .btn {
+        display: block;
+        margin-left: 0;
+        margin-top: 1rem;
+    }
+}
+
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .home,
+    .about {
+        flex-direction: column;
+        text-align: left;
+    }
+
+
+
+    .home-content,
+    .about-content {
+        max-width: 100%;
+
+    }
+}
