@@ -24,16 +24,14 @@
     top: 0;
     z-index: 100;
     height: 80px;
-
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    padding: 0 10%;
+    padding: 1.2rem 10%;
     background: var(--bg);
     backdrop-filter: blur(12px);
-
     border-bottom: 1px solid var(--text-main);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .navbar a
@@ -53,12 +51,15 @@
 }
 
 .c-letter {
-    font-weight: 700;
+    font-weight: 600;
     font-size: 1.5rem;
     letter-spacing: -0.02em;
     color: var(--text-main);
+    cursor: pointer;
+    transition: color 0.2s;
 }
 
+/* Nav Links */
 .links
 {
     display: flex;
@@ -98,7 +99,37 @@
 }
 
 .links a:hover {
+    opacity: 1;
     color: var(--accent-dark);
+}
+
+
+/*Right side: toggle + contact + hamburger */
+.navbar-right{
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+/* Dark?light toggle button */
+.theme-toggle {
+    background: transparent;
+    border: 2px solid var(--line);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.theme-toggle:hover {
+    border-color: var(--accent-dark);
+    color: var(--accent);
 }
 
 .lang-toggle-btn
@@ -120,6 +151,32 @@
     transform: scale(1.05);
 }
 
+/* Contact button */
+.contact-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--text-main);
+    color: var(--bg);
+    padding: 0.55rem 1.2rem;
+    border-radius: 30px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    font-family: var(--font-heading), serif;
+    text-decoration: none;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.contact-btn:hover {
+    background: var(--accent);
+    transform: scale(1.03);
+}
+
+.contact-btn i {
+    font-size: 1rem;
+}
+
+
 /* Mobile Menu Toggle */
 .menu-toggle {
     margin-left: auto;
@@ -140,7 +197,7 @@
         margin-right: auto;
     }
     .menu-toggle {
-        display: flex;
+        display: block;
     }
 
     .links {
@@ -148,19 +205,15 @@
         top: 80px;
         right: 16px;
         left: 10%;
-
         background-color: var(--surface);
         border: 1px solid var(--line) ;
         border-radius: 14px;
-
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
-
         gap: 14px;
         padding: 1rem;
         display: none;
-
         box-shadow: 0 12px 30px var(--text-main);
     }
     .links a {
@@ -170,9 +223,8 @@
     .links.active {
         display: flex;
     }
-
+    .contact-btn span { display: none; }
 
     .home { padding-top: 5.5rem; }
-
 
 }
