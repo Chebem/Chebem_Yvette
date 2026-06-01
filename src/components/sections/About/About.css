@@ -68,15 +68,11 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .home,
     .about {
         flex-direction: column;
         text-align: left;
     }
 
-
-
-    .home-content,
     .about-content {
         max-width: 100%;
 
