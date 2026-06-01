@@ -17,8 +17,20 @@
     --font-heading: 'ClashGrotesk-Variable', sans-serif;
 }
 
+/* Dark mode */
+[data-theme='dark'] {
+    --bg:#0F0E13;
+    --surface: #1A1825;
+    --text-main: #F3F2FA;
+    --text-muted: #9CA3AF;
+    --accent: #8A4FFF;
+    --accent-dark: #6D28D9;
+    --line: #2A2838;
+}
+
+
 /* Global Reset */
-* {
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -70,8 +82,11 @@ h1, h2, h3, h4
     font-weight: 300;
 }
 
-
+/* Shared Buttons */
 .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     font-family: var(--font-heading), sans-serif;
     font-weight: 600;
     letter-spacing: 0.02em;
@@ -82,6 +97,7 @@ h1, h2, h3, h4
     border-radius: 30px;
     text-transform: uppercase;
     cursor: pointer;
+    text-decoration: none;
     transition: background 0.3s ease, transform 0.3s ease;
 }
 
