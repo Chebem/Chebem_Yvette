@@ -4,15 +4,11 @@
 :root {
     --bg: #F3F2FA;
     --surface: #FFFFFF;
-
     --text-main: #0F0E13;
     --text-muted: #6B7280;
-
     --accent: #8A4FFF;
     --accent-dark: #6D28D9;
-
     --line: #E1E2EA;
-
     --font-body: 'Poppins-Variable', sans-serif;
     --font-heading: 'ClashGrotesk-Variable', sans-serif;
 }
@@ -51,6 +47,7 @@ body {
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 
 body, p, li, span, input, textarea
@@ -65,6 +62,69 @@ h1, h2, h3, h4
     font-family: var(--font-heading), sans-serif;
     font-weight: 700;
     letter-spacing: -0.02em;
+}
+
+/* SHARED SECTION HEADER */
+.section-heading{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.section-heading h2{
+    font-size: 1.8rem;
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.section-num{
+    color: var(--accent);
+    font-weight: 700;
+}
+
+.section-line{
+    flex: 1;
+    height: 1px;
+    background: var(--line);
+    max-width: 320px;
+}
+
+/*SHARED WORD HIGHLIGHTS*/
+mark{
+    background: none;
+    color: inherit;
+    border-radius: 5px;
+    padding: 0 5px;
+}
+
+.highlight-lavender {
+    background: rgba(138, 79, 255, 0.14);
+    color: var(--accent-dark);
+}
+.highlight-teal{
+    background: rgba(97, 218, 251, 0.18);
+    color: #0891B2;
+}
+.highlight-peach{
+    background: rgba(251, 146, 60, 0.16);
+    color: #C2410C;
+}
+.highlight-mint{
+    background: rgba(134, 239, 172, 0.22);
+    color: #86EFAC;
+}
+[data-theme='dark'] .highlight-lavender{
+    color: #C4B5FD;
+}
+[data-theme='dark'] .highlight-teal{
+    color: #67E8F9;
+}
+[data-theme='dark'] .highlight-peach{
+    color: #FDBA74;
+}
+[data-theme='dark'] .highlight-mint{
+    color: #86EFAC;
 }
 
 /*Utility Classes*/
