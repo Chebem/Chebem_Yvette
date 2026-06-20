@@ -1,7 +1,7 @@
 /* Left Vertical Line - running full page height */
 body::before {
     content: '';
-    position: fixes;
+    position: fixed;
     left: calc(10% - 40px);
     top: 0;
     bottom: 0;
