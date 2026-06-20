@@ -9,7 +9,7 @@
     --accent: #8A4FFF;
     --accent-dark: #6D28D9;
     --line: #E1E2EA;
-    --font-body: 'Poppins-Variable', sans-serif;
+    --font-body: 'Poppins', sans-serif;
     --font-heading: 'ClashGrotesk-Variable', sans-serif;
 }
 
@@ -124,7 +124,7 @@ mark{
     color: #FDBA74;
 }
 [data-theme='dark'] .highlight-mint{
-    color: #86EFAC;
+    color: #4ADE80;
 }
 
 /*Utility Classes*/
