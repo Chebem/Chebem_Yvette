@@ -1,0 +1,53 @@
+/* Left Vertical Line - running full page height */
+body::before {
+    content: '';
+    position: fixes;
+    left: calc(10% - 40px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+/* Right Vertical line */
+body::after{
+    content: '';
+    position: fixed;
+    right: calc(10% - 40px);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--line);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Horizontal section divider*/
+.section-divider {
+    height: 1px;
+    background: var(--line);
+    margin: 0 10%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Each section gets position relative so content sits above line */
+section {
+    position: relative;
+    z-index: 1;
+}
+
+/* Hide lines on mobile */
+@media (max-width: 768px) {
+    body::before,
+    body::after {
+        display: none;
+    }
+
+    .section-divider{
+        margin: 0 6%;
+    }
+}
