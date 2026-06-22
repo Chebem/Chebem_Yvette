@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './HoverButton.css'
 
 function HoverButton({ label, onClick, className='hover-btn' }) {
-    const [hover, setHover] = useState(false);
+    const [_hover, setHover] = useState(false);
 
     return (
         <button
