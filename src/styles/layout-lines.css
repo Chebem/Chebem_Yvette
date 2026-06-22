@@ -1,38 +1,32 @@
 /* Left Vertical Line - running full page height */
-body::before {
-    content: '';
+.line-left {
     position: fixed;
-    left: calc(10% - 40px);
     top: 0;
-    bottom: 0;
+    left: 60px;
     width: 1px;
-    background: var(--line);
-    z-index: 0;
+    height: 0;   /* GSAP animates this to 100% */
+    background: var(--text-muted);
+    z-index: 100;
     pointer-events: none;
 }
 
-
-/* Right Vertical line */
-body::after{
-    content: '';
+.line-top {
     position: fixed;
-    right: calc(10% - 40px);
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--line);
-    z-index: 0;
-    pointer-events: none;
-}
-
-/* Horizontal section divider*/
-.section-divider {
+    top: 60px;
+    left: 0;
+    right: 0;
+    width: 0;
     height: 1px;
-    background: var(--line);
-    margin: 0 10%;
-    position: relative;
-    z-index: 2;
+    background: var(--text-muted);
+    z-index: 100;
+    pointer-events: none;
 }
+
+[data-theme='dark'] .line-left,
+[data-theme='dark'] .line-top {
+    background: #3A3848;
+}
+
 
 /* Each section gets position relative so content sits above line */
 section {
@@ -42,12 +36,8 @@ section {
 
 /* Hide lines on mobile */
 @media (max-width: 768px) {
-    body::before,
-    body::after {
-        display: none;
+    .line-left,
+    .line-top {
+        display: none; }
     }
 
-    .section-divider{
-        margin: 0 6%;
-    }
-}
