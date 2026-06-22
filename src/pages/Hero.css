@@ -51,13 +51,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.6rem 10%;
+    padding: 15px 10%;
     position: relative;
     color: var(--text-main);
 }
 
 .hero-logo{
-    font-family: var(--font-heading) sans-serif;
+    font-family: var(--font-heading), 'Poppins', sans-serif;
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--text-main);
@@ -69,10 +69,16 @@
     gap: 1.5rem;
 }
 
+.hero-nav .hover-btn {
+    padding: 6px 14px;
+    font-size: 13px;
+}
+
 .hero-nav-link{
     text-decoration: none;
     font-size: 0.9rem;
-    color: var(--text-muted);
+    font-weight: 500;
+    color: var(--text-main);
     transition: color 0.25s ease;
 
 }
@@ -81,25 +87,7 @@
     color: var(--accent);
 }
 
-.hero-contact-btn{
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--text-main);
-    color:var(--bg);
-    border: none;
-    border-radius: 999px;
-    padding: 0.7rem 1.4rem;
-    font-size: 0.88rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
 
-.hero-contact-btn:hover{
-    background: var(--accent);
-    transform: translateY(-2px);
-}
 
 /*Main Hero*/
 .home {
@@ -107,7 +95,7 @@
     flex: 1;
     justify-content: space-between;
     align-items: center;
-    padding: 3rem 10% 4rem;
+    padding: 60px 10% 4rem;
     position: relative;
     gap: 2rem;
     z-index: 2;
@@ -139,7 +127,7 @@
 }
 
 .hero-greeting {
-    font-family: var(--font-heading) sans-serif;
+    font-family: var(--font-heading), 'Poppins', sans-serif;
     font-size: 42px;
     font-weight: 700;
     margin-bottom: 0.1rem;
@@ -148,7 +136,7 @@
 }
 
 .hero-heading{
-    font-family: var(--font-heading) sans-serif;
+    font-family: var(--font-body), 'Poppins', sans-serif;
     font-size: 42px;
     font-weight: 700;
     line-height: 1.15;
@@ -157,11 +145,17 @@
     margin-bottom: 0.1rem;
 }
 
+.hero-buttons {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
 .hero-sub{
-    font-size: 1rem;
+    font-size: 14px;
     color: var(--text-muted);
     line-height: 1.8;
-    margin: 1.5rem 0 0.8rem;
+    margin-top: 16px;
+    margin-bottom: 0;
 }
 
 .typing {
@@ -183,13 +177,6 @@
 }
 
 /* Buttons */
-
-.hero-buttons {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2rem;
-}
 
 /* Socials */
 
