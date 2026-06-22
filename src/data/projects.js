@@ -1,7 +1,8 @@
 export const projects = [
     {
         id: 'smu-navigator',
-        img: '/images/smu_logo.png',
+        color: '#6D28D9',
+        img: '/images/portfolioNavigator.jpeg',
         title: 'SMU Navigator App',
         short: 'Bilingual Android campus navigation app — published at MITA 2025 (Springer).',
         desc: 'A bilingual (Korean/English) Android campus navigation app built as capstone project. Led a 3-person team from planning to deployment. Integrates Google Maps API, Firebase auth, and MVVM architecture.',
@@ -9,9 +10,11 @@ export const projects = [
         demo: 'https://appetize.io/app/b_bllnynpd3v25pyuclt4dub2g3u?device=pixel7&osVersion=13.0&toolbar=true',
         github: 'https://github.com/Chebem',
         paper: 'https://link.springer.com/chapter/10.1007/978-981-95-3141-7_19',
+        year: '2025 - Ongoing',
     },
     {
         id: 'harubuddy',
+        color: '#0891B2',
         img: '/images/harubuddy.png',
         title: 'HaruBuddy — RAG AI System',
         short: 'Multi-agentic RAG AI system for foreigners in Korea — published at IEIE 2025.',
@@ -20,9 +23,11 @@ export const projects = [
         demo: '',
         github: 'https://github.com/Chebem',
         paper: 'https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE12551292',
+        year: '2025 - Ongoing',
     },
     {
         id: 'price-comparison',
+        color:'#C2410C',
         img: '/images/TT_portfolio.jpeg',
         title: 'TT — Price Comparison App',
         short: 'Full-stack price comparison app with AI chatbot recommendations.',
@@ -31,9 +36,11 @@ export const projects = [
         demo: 'https://the-time-tt.web.app/',
         github: 'https://github.com/Chebem',
         paper: '',
+        year: '2024',
     },
     {
         id: 'quiz-me',
+        color:'#15803D',
         img: '/images/quizmeportfolio.jpeg',
         title: 'QuizMe — AI Learning Platform',
         short: 'Login-based AI quiz platform with bookmarks and blog-style UI.',
@@ -42,5 +49,6 @@ export const projects = [
         demo: '',
         github: 'https://github.com/Chebem',
         paper: '',
+        year: '2023',
     },
 ];
