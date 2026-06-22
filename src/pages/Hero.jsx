@@ -5,12 +5,12 @@ import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 // import Header from "../components/Header/Header.jsx";
 import Projects from "../components/sections/Projects/Projects.jsx";
+import HoverButton from '../components/HoverButton/HoverButton.jsx';
 import { Lineicons } from "@lineiconshq/react-lineicons";
 import {
     GithubOutlined,
     LinkedinOutlined,
     Pencil1Outlined,
-    ArrowRightOutlined,
     InstagramOutlined,
 } from "@lineiconshq/free-icons";
 
@@ -52,9 +52,11 @@ function Hero() {
                         <a href="https://m.applykoprea.or.kr/news/view?cate-002&num=31695" target="_blank" rel="noopener noreferrer" className="hero-nav-link">
                            Blog
                         </a>
-                        <button className="hero-contact-btn" onClick={() => navigate('/home')}>
-                            About Me <Lineicons icon={ArrowRightOutlined} size={16} />
-                        </button>
+                        <HoverButton
+                            label="Contact Me"
+                            onClick={() => navigate('/home')}
+                            className="hover-btn"
+                        />
                     </div>
                 </nav>
 
@@ -77,48 +79,28 @@ function Hero() {
                     <p className="hero-sub">I don't just write code I build for impact. I create meaningful solutions through design, storytelling, and technology.</p>
 
                     <div className="hero-buttons">
-                        <button
-                            className="btn"
+                        <HoverButton
+                            label="Who am I?"
                             onClick={() => navigate('/home')}
-                    >
-                        About Me<Lineicons icon={ArrowRightOutlined} size={16} />
-                            </button>
+                            className="hover-btn"
+                        />
                     </div>
 
                     <div className="social-icons">
                         <a
-                            href="https://github.com/Chebem"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="GitHub"
-                        >
+                            href="https://github.com/Chebem" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                             <Lineicons icon={GithubOutlined} size={22}/>
                         </a>
-
                         <a
-                            href="https://kr.linkedin.com/in/chebem-chukwuka-6a2a0313a"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="LinkedIn"
-                        >
+                            href="https://kr.linkedin.com/in/chebem-chukwuka-6a2a0313a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                            <Lineicons icon={LinkedinOutlined} size={22}/>
                         </a>
-
                         <a
-                            href="https://www.instagram.com/_vette_c/"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Instagram"
-                        >
+                            href="https://www.instagram.com/_vette_c/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                             <Lineicons icon={InstagramOutlined} size={22}/>
                         </a>
-
                         <a
-                            href="https://m.applykorea.or.kr/news/view?cate=002&num=31695"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Blog"
-                        >
+                            href="https://m.applykorea.or.kr/news/view?cate=002&num=31695" target="_blank" rel="noopener noreferrer" aria-label="Blog">
                             <Lineicons icon={Pencil1Outlined}  size={22} />
                         </a>
                     </div>
