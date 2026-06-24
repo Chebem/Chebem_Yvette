@@ -259,7 +259,7 @@
 
     }
     .home {
-        flex-direction: column-reverse;
+        flex-direction: column;
         text-align: center;
         padding: 2rem 6% 3rem;
     }
