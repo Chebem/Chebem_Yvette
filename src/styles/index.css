@@ -6,11 +6,12 @@
     --surface: #FFFFFF;
     --text-main: #0F0E13;
     --text-muted: #6B7280;
-    --accent: #8A4FFF;
+    --accent: rgba(138, 79, 255, 0.4);
     --accent-dark: #6D28D9;
     --line: #E1E2EA;
     --font-body: 'Poppins', sans-serif;
     --font-heading: 'ClashGrotesk-Variable', sans-serif;
+    --card-color: #8A4FFF;
 }
 
 /* Dark mode */
