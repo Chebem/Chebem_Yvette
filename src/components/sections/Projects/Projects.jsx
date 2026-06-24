@@ -42,36 +42,43 @@ function ProjectCard({p, onClick}) {
             </div>
 
             <div className="project-img-wrap">
-                <img src={p.img} alt={p.title} />
+                <img src={p.img} alt={p.title} style={{ objectFit: p.imgFit || 'cover'}} />
                 <div className="project-overlay">
+                    {/* stack tags top */}
                     <div className="project-overlay-stack">
                         {p.stack.split(', ').slice(0, 4).map(tag => (
                             <span key={tag} className="overlay-stack-tag">{tag}</span>
                         ))}
                     </div>
-                    <div className="project-overlay-links">
-                        {p.demo && (
-                            <a href={p.demo} target="_blank" rel="noopener noreferrer" className="overlay-btn" onClick={e => e.stopPropagation()}>
-                                <Lineicons icon={Link2AngularRightOutlined} size={14} /> Live Demo
-                            </a>
-                        )}
-                        {p.github && (
-                            <a href={p.github} target="_blank" rel="noopener noreferrer" className="overlay-btn" onClick={e => e.stopPropagation()}>
-                                <Lineicons icon={GithubOutlined} size={14} /> GitHub
-                            </a>
-                        )}
+
+                    <div className="project-info" style={{background: `${p.color}15`}}>
+                        <div className="project-info-header">
+                            <span className="project-year">{p.year || '2025'}</span>
+                            {p.paper && <span className="project-badge">Published</span>}
+                        </div>
+                        <h3>{p.title}</h3>
+                        <p>{p.short}</p>
+                        <div className="project-info-bottom">
+                            <span className="see-more-link">Learn More</span>
+                            <div className="project-icon-links"
+                                 onMouseEnter={() => setVisible(false)}
+                                 onMouseLeave={() => setVisible(true)}>
+                                {p.demo && (
+                                    <a href={p.demo} target="_blank" rel="noopener noreferrer"
+                                       onClick={e => e.stopPropagation()}>
+                                        <Lineicons icon={Link2AngularRightOutlined} size={16} />
+                                    </a>
+                                )}
+                                {p.github && (
+                                    <a href={p.github} target="_blank" rel="noopener noreferrer"
+                                       onClick={e => e.stopPropagation()}>
+                                        <Lineicons icon={GithubOutlined} size={16} />
+                                    </a>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <div className="project-info">
-                <div className="project-info-header">
-                    <span className="project-year">{p.year || '2025'}</span>
-                    {p.paper && <span className="project-badge">Published</span>}
-                </div>
-                <h3>{p.title}</h3>
-                <p>{p.short}</p>
-                <span className="see-more-link"> Learn More  </span>
             </div>
         </div>
     );
@@ -84,7 +91,7 @@ function Projects() {
     return (
         <section className="projects-section" id="projects">
             <div className="section-heading">
-                <h2><span className="section-num"> Selected Projects</span></h2>
+                <h2>Selected Projects</h2>
                 <div className="section-line"></div>
             </div>
             <div className="project-grid">
