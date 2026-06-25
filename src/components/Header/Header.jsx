@@ -1,30 +1,57 @@
-import {useEffect, useState} from 'react';
-import './Header.css'
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate} from "react-router-dom";
+import { gsap } from 'gsap';
+import { Lineicons } from "@lineiconshq/react-lineicons";
+import {
+    Sun1Outlined,
+    MoonHalfRight5Outlined,
+    MenuHamburger1Outlined,
+    XmarkOutlined,
+} from "@lineiconshq/free-icons";
+import HoverButton from "../HoverButton/HoverButton";
+import './Header.css';
 
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [darkMode, setDarkMode] = useState(false);
+    const [darkMode, setDarkMode] = useState(() => {
+        const saved = localStorage.getItem('theme');
+        return saved === 'dark';
+    });
     const navigate = useNavigate();
+    const thumbRef = useRef(null);
 
-    const toggleMenu = () => {
-        setMenuOpen(prev => !prev);
-    };
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', darkMode ? 'dark' : 'light' );
+        if (thumbRef.current) {
+            gsap.set(thumbRef.current, {x: darkMode ? 24 : 0});
+        }
+    }, [darkMode]);
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 80);
         };
-        window.addEventListener('scroll', handleScroll);
-    },[]);
+            window.addEventListener('scroll', handleScroll);
+            return () => window.removeEventListener('scroll', handleScroll);
+
+    }, []);
 
     const toggleTheme = () => {
         const next = !darkMode;
         setDarkMode(next);
         document.documentElement.setAttribute('data-theme', next ? 'dark' : 'light');
+        localStorage.setItem('theme', next ? 'dark' : 'light');
+        //GSAP animate the thumb
+        gsap.to(thumbRef.current, {
+            x: next ? 24 : 0,
+            duration: 0.4,
+            ease: 'back.out(1.7)', //bouncy feel
+        });
     };
+
+    const toggleMenu = () => setMenuOpen(prev => !prev);
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -36,26 +63,47 @@ function Header() {
 
             {/*Desktop Links*/}
             <div className={`links ${menuOpen ? ' active' : ''}`}>
-                <a href="#about" onClick={() => setMenuOpen(false)}>About</a>
-                <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+                <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
+                <a href="/home#about" onClick={() => setMenuOpen(false)}>About</a>
+                <a href="/home#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+                <a href="/home#contact" onClick={() => setMenuOpen(false)}>Contact</a>
+                <a href="https://m.applykorea.or.kr/news/view?cate=002&num=31695"
+                   target="_blank" rel="noopener noreferrer"
+                   onClick={() => setMenuOpen(false)}>Blog</a>
             </div>
+
             <div className="navbar-right">
-                {/* Dark/Light toogle */}
+
+                {/* Dark/Light toggle */}
                 <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
-                    <i className={`bx ${darkMode ? 'bx-su' : 'bx-moon'}`}></i>
+                    <span className="toggle-track">
+                        <span className="toggle-thumb" ref={thumbRef}>
+                            <Lineicons icon={darkMode ? Sun1Outlined : MoonHalfRight5Outlined} size={18} />
+                        </span>
+                    </span>
                 </button>
 
 
             {/*Contact button*/}
-            <a href="#contact" className="contact-brtn">
-                Contact<i className="bx bx-arrow-back bx-rotate-180"></i>
-            </a>
+             <HoverButton
+                    label="Contact Me"
+                    onClick={() => {
+                        navigate('/home');
+                        setTimeout(() => {
+                            document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
+                        }, 100);
+                    }}
+                    className="hover-btn"
+             />
 
             {/* Hamburger */}
-            <div className="menu-toggle" onClick={toggleMenu}>
-                <i className={menuOpen ? 'bx bx-x' : 'bx bx-menu'}></i>
+            <button className="menu-toggle" onClick={() => setMenuOpen(prev => !prev)}
+                    aria-label="Toggle menu">
+                <Lineicons icon={menuOpen ? XmarkOutlined : MenuHamburger1Outlined} size={22} />
+            </button>
+
             </div>
-            </div>
+            <div className="line-top"></div>
         </nav>
     );
 }
