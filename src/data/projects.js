@@ -2,7 +2,8 @@ export const projects = [
     {
         id: 'smu-navigator',
         color: '#6D28D9',
-        img: '/images/portfolioNavigator.jpeg',
+        img: '/images/SMU_Navigator.png',
+        imgFit: 'cover',
         title: 'SMU Navigator App',
         short: 'Bilingual Android campus navigation app — published at MITA 2025 (Springer).',
         desc: 'A bilingual (Korean/English) Android campus navigation app built as capstone project. Led a 3-person team from planning to deployment. Integrates Google Maps API, Firebase auth, and MVVM architecture.',
@@ -15,7 +16,7 @@ export const projects = [
     {
         id: 'harubuddy',
         color: '#0891B2',
-        img: '/images/harubuddy.png',
+        img: '/images/Harubuddy.png',
         title: 'HaruBuddy — RAG AI System',
         short: 'Multi-agentic RAG AI system for foreigners in Korea — published at IEIE 2025.',
         desc: 'AI system designed to help foreigners living in Korea access life information. Bilingual voice and text assistant using LLM, Neo4j, PostgreSQL/pgvector, and Gemini. Presented at IEIE 2025 and published on DBpia.',
