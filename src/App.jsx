@@ -9,6 +9,16 @@ import ProjectDetail from './pages/ProjectDetail.jsx';
 
 function App() {
     useEffect(() => {
+        //Respect user's motion preference
+        const prefersReducedMotion = window.matchMedia('prefers-reduced-motion: reduce').matches;
+
+        if (prefersReducedMotion) {
+            //Skip animations
+            gsap.set('.line-left', { height: '100%' });
+            gsap.set('.line-top', { width: '100%' });
+            return;
+        }
+
         gsap.to('.line-left', {
            height: '100%',
            duration: 1.2,

@@ -22,6 +22,14 @@ function Hero() {
     useEffect(() => {
         gsap.registerPlugin(TextPlugin);
 
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (prefersReducedMotion) {
+            //just shoe the first word
+            gsap.set('.typing', { text: 'Chebem Yvette '});
+            return;
+        }
+
         const words = ['Chebem Yvette', 'a Full Stack Dev.', 'a Mobile Engineer', ' an AI Researcher.'];
         const typingL = gsap.timeline({repeat: -1 });
 
