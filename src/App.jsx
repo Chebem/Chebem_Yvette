@@ -37,7 +37,6 @@ function App() {
   return (
       <>
           <div className="line-left"></div>
-          <div className="line-top"></div>
           <Routes>
               <Route path="/" element={<Hero />} />
               <Route path= "/home" element={<Home />} />
