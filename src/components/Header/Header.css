@@ -1,46 +1,24 @@
 /* HEADER / NAVBAR */
-
-
-/* Header */
-.header {
+/* NAVBAR */
+.navbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    padding: 15px 10%;
-    background: var(--surface);
-    color: var(--text-main);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 100;
-    border-bottom: 1px solid var(--line);
-    box-shadow:  0 4px 12px rgba(0,0,0,0.06);
-}
-
-/* NAVBAR */
-.navbar {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    height: 80px;
+    z-index: 1000;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.2rem 10%;
+    padding: 0 10%;
     background: var(--bg);
     backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--text-main);
+    border-bottom: 1px solid var(--line);
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.navbar a
-{
-    font-family: var(--font-heading), sans-serif;
-    letter-spacing: -0.02em;
-    font-weight: 600;
-    text-decoration: none;
-
+.navbar.scrolled{
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
 
@@ -51,12 +29,17 @@
 }
 
 .c-letter {
-    font-weight: 600;
-    font-size: 1.5rem;
+    font-family: var(--font-heading), 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 18px;
     letter-spacing: -0.02em;
     color: var(--text-main);
     cursor: pointer;
     transition: color 0.2s;
+}
+
+.c-letter:hover {
+    color: var(--accent);
 }
 
 /* Nav Links */
@@ -64,16 +47,15 @@
 {
     display: flex;
     align-items: center;
-    gap: 18px;
-    margin-left: auto;
+    gap: 32px;
 }
 
 .links a {
-    font-size: 0.98rem;
+    font-family: var(--font-heading), 'Poppins', sans-serif;
+    font-size: 14px;
     text-decoration: none;
-    color: var(--text-main);
+    color: var(--text-muted);
     font-weight: 500;
-    opacity: 0.85;
     position: relative;
     transition: color 0.3s ease;
 }
@@ -82,25 +64,22 @@
     content: "";
     position: absolute;
     left: 0;
-    bottom: -10px;
+    bottom: -4px;
     width: 100%;
-    height: 2px;
-    background-color: var(--accent);
+    height: 1px;
+    background-color: var(--accent-dark);
     border-radius: 2px;
     transform: scaleX(0);
-    opacity: 0;
-    transition: transform 0.4s ease, opacity 0.4s ease;
+    transition: transform 0.3s ease;
 }
 
+.links a:hover {
+    color: var(--text-main);
+}
 .links a:hover::after,
 .links a.active::after {
     transform: scaleX(1);
     opacity: 1;
-}
-
-.links a:hover {
-    opacity: 1;
-    color: var(--accent-dark);
 }
 
 
@@ -114,21 +93,41 @@
 /* Dark?light toggle button */
 .theme-toggle {
     background: transparent;
-    border: 2px solid var(--line);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.toggle-track {
+    border-radius: 999px;
+    width: 52px;
+    height: 28px;
+    display: flex;
+    padding: 3px;
+    background: var(--line);
+    align-items: center;
+    transition: background 0.3s ease;
+    position: relative;
+}
+[data-theme='dark'] .toggle-track {
+    background: var(--accent);
+}
+
+.toggle-thumb {
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+    background: var(--surface);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     color: var(--text-main);
-    font-size: 1.1rem;
-    transition: border-color 0.2s, background 0.2s;
+    position: absolute;
+    left: 3px;
 }
 
 .theme-toggle:hover {
-    border-color: var(--accent-dark);
+    border-color: var(--accent);
     color: var(--accent);
 }
 
@@ -151,80 +150,54 @@
     transform: scale(1.05);
 }
 
-/* Contact button */
-.contact-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: var(--text-main);
-    color: var(--bg);
-    padding: 0.55rem 1.2rem;
-    border-radius: 30px;
-    font-size: 0.88rem;
-    font-weight: 600;
-    font-family: var(--font-heading), serif;
-    text-decoration: none;
-    transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.contact-btn:hover {
-    background: var(--accent);
-    transform: scale(1.03);
-}
-
-.contact-btn i {
-    font-size: 1rem;
-}
-
-
 /* Mobile Menu Toggle */
 .menu-toggle {
-    margin-left: auto;
     display: none;
-    font-size: 2rem;
+    background: transparent;
+    border: none;
     color: var(--text-main);
     cursor: pointer;
+    padding: 4px;
 }
 
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
+       padding: 0.6%;
     }
 
     .logo-container {
         margin-right: auto;
     }
     .menu-toggle {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .links {
         position: absolute;
-        top: 80px;
-        right: 16px;
-        left: 10%;
+        top: 64px;
+        right: 6%;
+        left: 6%;
         background-color: var(--surface);
         border: 1px solid var(--line) ;
         border-radius: 14px;
         flex-direction: column;
         align-items: flex-start;
         justify-content: space-between;
-        gap: 14px;
-        padding: 1rem;
+        gap: 16px;
+        padding: 16px;
         display: none;
-        box-shadow: 0 12px 30px var(--text-main);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+        z-index: 999;
     }
+
     .links a {
-        opacity: 1;
+        font-size: 15px;
+        color: var(--text-main);
     }
 
     .links.active {
         display: flex;
     }
-    .contact-btn span { display: none; }
-
-    .home { padding-top: 5.5rem; }
-
 }
