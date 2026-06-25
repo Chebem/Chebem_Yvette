@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
-// import Header from "../components/Header/Header.jsx";
+import Header from "../components/Header/Header.jsx";
 import Projects from "../components/sections/Projects/Projects.jsx";
 import HoverButton from '../components/HoverButton/HoverButton.jsx';
 import { Lineicons } from "@lineiconshq/react-lineicons";
@@ -53,21 +53,7 @@ function Hero() {
         <>
             <section className="hero" id="home">
                 <div className="dot-grid" aria-hidden="true"></div>
-
-                <nav className="hero-nav">
-                    <span className="hero-logo">Chebem Yvette</span>
-                    <div className="hero-nav-right">
-                        <a href="https://m.applykoprea.or.kr/news/view?cate-002&num=31695" target="_blank" rel="noopener noreferrer" className="hero-nav-link">
-                           Blog
-                        </a>
-                        <HoverButton
-                            label="Contact Me"
-                            onClick={() => navigate('/home')}
-                            className="hover-btn"
-                        />
-                    </div>
-                </nav>
-
+                <Header />
             <div className="home">
                 {/* Profile image */}
                 <div className="home-img">
