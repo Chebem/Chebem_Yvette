@@ -1,11 +1,12 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
-import './Hero.css';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
-import Header from "../components/Header/Header.jsx";
-import Projects from "../components/sections/Projects/Projects.jsx";
-import HoverButton from '../components/HoverButton/HoverButton.jsx';
+
+import Preloader from "../components/Preloader/Preloader";
+import Header from "../components/Header/Header";
+import Projects from "../components/sections/Projects/Projects";
+import HoverButton from '../components/HoverButton/HoverButton';
 import { Lineicons } from "@lineiconshq/react-lineicons";
 import {
     GithubOutlined,
@@ -14,9 +15,12 @@ import {
     InstagramOutlined,
 } from "@lineiconshq/free-icons";
 
+import './Hero.css';
+
 
 function Hero() {
     const navigate = useNavigate();
+    const [showPreloader, setShowPreloader] = useState(true);
 
     //Typing animation
     useEffect(() => {
@@ -30,7 +34,7 @@ function Hero() {
             return;
         }
 
-        const words = ['Chebem Yvette', 'a Full Stack Dev.', 'a Mobile Engineer', ' an AI Researcher.'];
+        const words = ['AI that understands.', 'apps that help.', 'software that matters.', 'technology without barriers.'];
         const typingL = gsap.timeline({repeat: -1 });
 
         words.forEach(word => {
@@ -51,34 +55,36 @@ function Hero() {
 
     return (
         <>
+            {showPreloader &&  (
+                <Preloader onComplete={() =>  setShowPreloader(false)} />
+            )}
             <section className="hero" id="home">
                 <div className="dot-grid" aria-hidden="true"></div>
                 <Header />
             <div className="home">
                 {/* Profile image */}
                 <div className="home-img">
-                    <img src="/images/Hero1.jpeg" alt="Chebem Yvette" />
+                    <div className="hero-phone">
+                        <div className="hero-phone-notch"></div>
+                        <div className="hero-phone-img">
+                            <img src="/images/Hero1.jpeg" alt="Chebem Yvette" />
+                        </div>
+                        <div className="hero-phone-bottom-bar"></div>
+                    </div>
                 </div>
 
                 {/* Text content */}
                 <div className="home-content">
-                    <h1 className="hero-greeting">
-                        Hi There,
-                    </h1>
-                    <h1 className="hero-heading"> I'm <span className="typing"></span>
-                        {/* typing span — GSAP TextPlugin will target this */}
-                    </h1>
-                    <p className="hero-heading">I build <mark className="highlight-teal">Full Stack</mark> apps</p>
-                    <p className="hero-heading">with <mark className="highlight-peach">Mobile</mark> &amp; <mark className="highlight-mint">AI</mark> impact.</p>
-                    <p className="hero-sub">I don't just write code I build for impact. I create meaningful solutions through design, storytelling, and technology.</p>
+                    <h2 className="hero-greeting">Hi, I'm Yvette !</h2>
+                    <h2 className="hero-heading">I build <span className="typing"></span></h2>
 
                     <div className="hero-buttons">
-                        <HoverButton
-                            label="Who am I?"
-                            onClick={() => navigate('/home')}
-                            className="hover-btn"
-                        />
-                    </div>
+                    <HoverButton
+                        label="Who am I?"
+                        onClick={() => navigate('/home')}
+                        className="hover-btn"
+                    />
+                </div>
 
                     <div className="social-icons">
                         <a
@@ -87,7 +93,7 @@ function Hero() {
                         </a>
                         <a
                             href="https://kr.linkedin.com/in/chebem-chukwuka-6a2a0313a" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                           <Lineicons icon={LinkedinOutlined} size={22}/>
+                            <Lineicons icon={LinkedinOutlined} size={22}/>
                         </a>
                         <a
                             href="https://www.instagram.com/_vette_c/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -102,7 +108,6 @@ function Hero() {
             </div>
         </section>
             < Projects />
-
         </>
     );
 }
