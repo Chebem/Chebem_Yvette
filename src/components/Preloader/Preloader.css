@@ -1,0 +1,62 @@
+.preloader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg);
+    pointer-events: none;
+    overflow: hidden;
+}
+.preloader-stage {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+}
+.word-wrap {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    align-items: center;
+    overflow: visible;
+    transform: translate(-50%, -50%);
+    display: flex;
+}
+.preloader-letter {
+    font-family: var(--font-heading) 'Poppins', sans-serif;
+    font-size: clamp(48px, 10vw,120px);
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+
+.preloader-accent {
+    position: fixed;
+    font-family: var(--font-heading),  'Poppins', sans-serif;
+    font-size: clamp(48px, 10vw,120px);
+    font-weight: 700;
+    color: var(--text-main);
+    opacity: 0;
+    pointer-events: none;
+    text-shadow: 0 0 20px rgba(138, 79, 255, 0.8);
+    z-index: 5;
+    transform: translate(-50%, -50%);
+}
+
+.preloader-circle {
+    position: absolute;
+    inset: 0;
+    background: var(--bg);
+    clip-path: circle(0% at 50% 50%);
+    z-index: 2;
+}
+
+.preloader-impact-glow {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 160, 80, 0.6) 0%, transparent 70%);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 3;
+}
