@@ -38,6 +38,13 @@ function Header() {
 
     }, []);
 
+    //Preloader- reload on Logo Click
+    const handleLogoClick = () => {
+        navigate('/');
+        window.dispatchEvent(new Event('replay-into'));
+    }
+
+    // Dark/Light Mode Toggle Button animation
     const toggleTheme = () => {
         const next = !darkMode;
         setDarkMode(next);
@@ -50,13 +57,12 @@ function Header() {
             ease: 'back.out(1.7)', //bouncy feel
         });
     };
-
     const toggleMenu = () => setMenuOpen(prev => !prev);
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="logo-container">
-                    <span className="c-letter" onClick={() => navigate('/')}>
+                    <span className="c-letter" onClick={handleLogoClick}>
                         Chebem Yvette
                     </span>
             </div>
@@ -66,7 +72,6 @@ function Header() {
                 <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
                 <a href="/home#about" onClick={() => setMenuOpen(false)}>About</a>
                 <a href="/home#projects" onClick={() => setMenuOpen(false)}>Projects</a>
-                <a href="/home#contact" onClick={() => setMenuOpen(false)}>Contact</a>
                 <a href="https://m.applykorea.or.kr/news/view?cate=002&num=31695"
                    target="_blank" rel="noopener noreferrer"
                    onClick={() => setMenuOpen(false)}>Blog</a>
