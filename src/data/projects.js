@@ -5,7 +5,7 @@ export const projects = [
         img: '/images/SMU_Navigator.png',
         imgFit: 'cover',
         title: 'SMU Navigator App',
-        short: 'Bilingual Android campus navigation app — published at MITA 2025 (Springer).',
+        short: 'Helping international students navigate campus through a bilingual mobile application - published at MITA 2025 (Springer).',
         desc: 'A bilingual (Korean/English) Android campus navigation app built as capstone project. Led a 3-person team from planning to deployment. Integrates Google Maps API, Firebase auth, and MVVM architecture.',
         stack: 'Java, Jetpack Compose, Firebase, Google Maps API, Android',
         demo: 'https://appetize.io/app/b_bllnynpd3v25pyuclt4dub2g3u?device=pixel7&osVersion=13.0&toolbar=true',
