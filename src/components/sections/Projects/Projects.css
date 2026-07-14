@@ -201,6 +201,7 @@
 
 .see-more-link {
     font-size: 12px;
+    font-family: var(--font-body), 'Poppins', sans-serif;
     color: rgba(255, 255, 255, 0.8);
     font-weight: 600;
     transition: letter-spacing 0.2s;
@@ -208,7 +209,7 @@
 }
 
 .project-card:hover .see-more-link {
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 /* Mobile */
