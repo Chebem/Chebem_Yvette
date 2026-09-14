@@ -1,0 +1,261 @@
+.timeline-section {
+    position: relative;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+}
+
+.timeline-bg-num {
+    position: absolute;
+    top: 2rem;
+    right: 5%;
+    font-family: var(--font-heading), sans-serif;
+    font-size: clamp(6rem, 15vw, 14rem);
+    font-weight: 700;
+    color: var(--text-main);
+    opacity: 0.04;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    letter-spacing: -0.04em;
+}
+
+.timeline-section .dot-grid {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, var(--text-main) 1px, transparent 1px);
+    background-size: 28px 28px;
+    opacity: 0.035;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Two-column layout */
+.timeline-layout {
+    display: flex;
+    align-items: stretch;
+    gap: 4rem;
+    width: 100%;
+    padding: 8rem 10%;
+}
+
+/* LEFT — sticky */
+.timeline-left {
+    flex: 0 0 280px;
+    position: sticky;
+    top: 25vh;
+    align-self: flex-start;
+}
+
+.timeline-label {
+    display: block;
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+}
+
+.timeline-title {
+    font-family: var(--font-heading), sans-serif;
+    font-size: clamp(2.5rem, 4vw, 3.5rem);
+    font-weight: 700;
+    color: var(--text-main);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+}
+
+.timeline-subtitle {
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.timeline-counter {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.timeline-counter-num {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    line-height: 1;
+}
+
+.timeline-counter-text {
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+
+/* RIGHT — scrolling cards */
+.timeline-right {
+    flex: 1;
+    height: 780px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+
+}
+
+/* Stack — relative so cards position against it */
+.milestone-stack {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* Each card is sticky and stacks on top of previous */
+.milestone-card {
+    border-radius: 24px;
+    top: 0;
+    left: 0;
+    right: 0;
+    max-width: 680px;
+    padding: 2.5rem 2.5rem 3rem;
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    gap: 16px;
+    will-change: transform;
+}
+
+/* Color variants */
+.milestone-card--lavender {
+    background: #1a1033;
+    border: 1px solid
+    rgba(138, 79, 255, 0.4);
+}
+.milestone-card--teal     {
+    background: #0d1f26;
+    border: 1px solid
+    rgba(97, 218, 251, 0.4);
+}
+.milestone-card--peach    {
+    background: #1f1208;
+    border: 1px solid
+    rgba(251, 146, 60, 0.4);
+}
+.milestone-card--mint     {
+    background :#0d1f14;
+    border: 1px solid
+    rgba(134, 239, 172, 0.4);
+}
+
+/* Light mode */
+:root:not([data-theme='dark']) .milestone-card--lavender { background: #f0ebff; }
+:root:not([data-theme='dark']) .milestone-card--teal     { background: #e8f9ff; }
+:root:not([data-theme='dark']) .milestone-card--peach    { background: #fff3eb; }
+:root:not([data-theme='dark']) .milestone-card--mint     { background: #ebfff3; }
+
+
+.milestone-card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.milestone-icon {
+    width: 80px;         /* bigger icon box */
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 18px;
+    margin-bottom: 1rem;
+    background: rgba(255, 255, 255, 0.06);
+}
+
+.milestone-year {
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+}
+
+.milestone-title {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 1.6rem;
+    margin-top: 0.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.3;
+}
+
+.milestone-org {
+    font-family: var(--font-body), sans-serif;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.milestone-bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.milestone-bullets li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.8;
+    font-family: var(--font-body), sans-serif;
+    font-size: 1rem;
+    color: var(--text-muted);
+}
+
+.milestone-bullets li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+.milestone-card--lavender .milestone-bullets li::before {
+    background: #8b5cf6;
+}
+
+.milestone-card--teal .milestone-bullets li::before {
+    background: #0891B2;
+}
+
+.milestone-card--peach .milestone-bullets li::before {
+    background: #C2410C;
+}
+
+.milestone-card--mint .milestone-bullets li::before {
+    background: #16a34a;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .timeline-section {
+        padding: 5rem 6%;
+        overflow: hidden;
+    }
+    .timeline-layout {
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .timeline-left {
+        position: static;
+        flex: none;
+        width: 100%;
+    }
+}
