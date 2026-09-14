@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 
-import Preloader from "../components/Preloader/Preloader";
-import Header from "../components/Header/Header";
-import Projects from "../components/sections/Projects/Projects";
-import HoverButton from '../components/HoverButton/HoverButton';
+import Preloader from "../../components/Preloader/Preloader.jsx";
+import Header from "../../components/Header/Header.jsx";
+import Projects from "../../components/sections/Projects/Projects.jsx";
+import HoverButton from '../../components/HoverButton/HoverButton.jsx';
 import { Lineicons } from "@lineiconshq/react-lineicons";
 import {
     GithubOutlined,
