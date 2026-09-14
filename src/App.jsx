@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { gsap } from 'gsap';
 import { Routes, Route} from 'react-router-dom';
-import Home from './pages/Home.jsx';
+import Home from './pages/Home/Home.jsx';
 import AboutPage from './pages/AboutPage.jsx';
-import ProjectDetail from './pages/ProjectDetail';
+import ProjectDetail from './pages/ProjectDetails/ProjectDetail.jsx';
 import SpotifyWidget from "./components/SpotifyWidget/SpotifyWidget";
 
 
