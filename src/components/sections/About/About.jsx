@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import {useEffect, useRef, useState} from 'react';
 import { Lineicons } from "@lineiconshq/react-lineicons";
 import {
     MapPin5Outlined,
@@ -9,12 +9,12 @@ import {
     HeartOutlined,
     RefreshCircle1ClockwiseOutlined,
 } from "@lineiconshq/free-icons";
-import Education from "../Education/Education";
+
 import './About.css';
 import HoverButton from '../../HoverButton/HoverButton';
+import {gsap} from "gsap";
 
-
-// About Section
+// AboutPage Section
 function About () {
     const [flipped, setFlipped] = useState(false);
     const facts = [
@@ -25,13 +25,51 @@ function About () {
         { icon: <Lineicons icon={MusicOutlined} size={24} />, label: 'MUSIC', value: 'AfroGospel & Afrobeat' },
         { icon: <Lineicons icon={HeartOutlined} size={24} />, label: 'HOBBY', value: 'K-dramas & Karaoke 🎤' },
     ];
+    const cardWrapRef = useRef(null);
+
+    // Magnetic hover independent of the preloader
+    useEffect(() => {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const wrap = cardWrapRef.current;
+        if (!wrap || prefersReducedMotion) return;
+
+        const xTo = gsap.quickTo(wrap, 'x', { duration: 0.6, ease: 'power3.out' });
+        const yTo = gsap.quickTo(wrap, 'y', { duration: 0.6, ease: 'power3.out' });
+
+        const handleMove = (e) => {
+            const rect = wrap.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const distX = e.clientX - centerX;
+            const distY = e.clientY - centerY;
+            xTo(gsap.utils.clamp(-24, 24, distX * 0.06));
+            yTo(gsap.utils.clamp(-24, 24, distY * 0.06));
+        };
+        const handleLeave = () => { xTo(0); yTo(0); };
+
+        window.addEventListener('mousemove', handleMove);
+        window.addEventListener('mouseleave', handleLeave);
+        return () => {
+            window.removeEventListener('mousemove', handleMove);
+            window.removeEventListener('mouseleave', handleLeave);
+        };
+    }, []);
 
     return (
         <>
             <section className="about-section" id="about">
+                {/* left- bio*/}
+                <div className="about-content">
+                    <h2 className="about-statement">
+                        I believe technology should
+                        <mark className="highlight-teal"> break barriers</mark>
+                        and <mark className="highlight-peach">connect people</mark>, while solving
+                        <mark className="highlight-lavender">problems that are overlooked</mark>
+                    </h2>
+                </div>
 
-                {/* Left - 3D flip card*/}
-                <div className="about-phone-wrap">
+                {/* right- 3D flip card*/}
+                <div className="about-phone-wrap" ref={cardWrapRef}>
                     <div className={`about-flip-card ${flipped ? 'flipped' : ''}`}
                          onClick={() => setFlipped(!flipped)}
                     >
@@ -48,7 +86,7 @@ function About () {
                                     <div className="about-phone-bottom">
                                         <div className="about-phone-name-row">
                                             <span className="about-name">Bembem</span>
-                                            <span className="about-pronouns">She/Her</span>
+                                            <span className="about-pronouns">Tap to flip</span>
                                         </div>
                                         <button className="about-flip-btn" onClick={e => { e.stopPropagation(); setFlipped(true); }}>
                                             <Lineicons icon={RefreshCircle1ClockwiseOutlined} size={16} />
@@ -85,40 +123,7 @@ function About () {
                         </div>
                     </div>
                 </div>
-
-
-                {/* Right- bio*/}
-                <div className="about-content">
-                    <h2 className="about-statement">
-                        I believe technology should
-                        <mark className="highlight-teal"> break barriers</mark>,
-                        connect people, and solve
-                        <mark className="highlight-lavender">problems that are overlooked</mark>
-                    </h2>
-                    <p className="about-description">
-                        Originally from Nigeria, my journey brought me to South Korea as a GKS Scholar.
-                        What began as a leap of faith turned into one of the most transformative chapters
-                        of my life. I learned Korean, rebuilt my academic journey from the beginning,
-                        and earned my Computer Science degree from Semyung University ,
-                        while discovering a passion for AI, mobile, and web applications. When I’m not coding,
-                        I’m usually out exploring new hidden gems, binge-watching K-dramas,
-                        or pretending I’m the headliner in a karaoke room (my vocal cords may disagree 🎤😂).
-                    </p>
-                    <div className="about-buttons">
-                        <HoverButton
-                            label="Resume (EN)"
-                            onClick={() => window.open('/resume/Chukwuka_Chinechebem_Yvette_Resume_Eng.pdf', '_blank')}
-                            className="hover-btn"
-                        />
-                        <HoverButton
-                            label="Resume (KR)"
-                            onClick={() => window.open('/resume/추쿠카_치네체벰_이베트_이력서.pdf', '_blank')}
-                            className="hover-btn"
-                        />
-                    </div>
-                </div>
             </section>
-            <Education />
         </>
 
 
