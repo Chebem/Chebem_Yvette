@@ -39,7 +39,7 @@
 }
 
 
-/* Home Section */
+/* AboutPage Section */
 .hero-box {
     background: rgba(255,255,255,0.5);
     backdrop-filter: blur(12px);
@@ -87,9 +87,14 @@
     color: var(--accent);
 }
 
+.hero-line-mask {
+    overflow: hidden;
+}
 
 
-/*Main Hero*/
+
+
+/*Main Home*/
 .home {
     display: flex;
     flex: 1;
@@ -100,71 +105,38 @@
     gap: 2rem;
     z-index: 2;
 }
-
-.hero-phone {
-    width: 300px;
-    height: 500px;
-    border-radius: 40px;
-    background: #1a1825;
-    border: 1px solid rgba(138, 79, 255, 0.3);
-    box-shadow:
-            0 0 40px rgba(138, 79, 255, 0.2),
-            0 24px 60px rgba(0,0,0,0.3);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-
-.hero-phone-notch {
-    width: 80px;
-    height: 6px;
-    background: rgba(255,255,255,0.15);
-    border-radius: 4px;
-    margin: 14px auto 0;
-    flex-shrink: 0;
-}
-
-.hero-phone-img {
-    flex: 1;
-    background: rgba(138, 79, 255, 0.4);
-    overflow: hidden;
-    margin-top: 4px;
-}
-
-.hero-phone-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: top center;
-    display: block;
-}
-
-.hero-phone-bottom-bar {
-    height: 32px;
-    background: #1a1825;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-}
-
-.hero-phone-bottom-bar::after {
-    content: '';
-    width: 40px;
-    height: 5px;
-    background: rgba(255,255,255,0.2);
-    border-radius: 4px;
+.home-img {
+    order: 2;
 }
 
 /*Content*/
 .home-content{
     max-width: 600px;
     flex: 1;
+    order: 1;
 }
 
+.hero-photo-wrap {
+    position: relative;
+    will-change: transform;
+}
+
+.hero-photo {
+    width: 100%;
+    max-width: 320px;
+    border-radius: 16px;
+    object-fit: cover;
+    box-shadow:
+            0 0 60px rgba(138, 79, 255, 0.35),
+            0 0 120px rgba(138, 79, 255, 0.15),
+            0 24px 60px rgba(0, 0, 0, 0.4);
+    display: block;
+    pointer-events: none;
+}
+
+
 .hero-greeting {
-    font-family: var(--font-body);
+    font-family: var(--font-body) sans-serif;
     font-size: 56px;
     font-weight: 800;
     margin-bottom: 8px;
@@ -173,7 +145,7 @@
 }
 
 .hero-heading{
-    font-family: var(--font-body);
+    font-family: var(--font-body) sans-serif;
     font-size: 56px;
     font-weight: 800;
     line-height: 1.1;
@@ -254,6 +226,13 @@
         flex-direction: column;
         text-align: center;
         padding: 100px 6% 3rem;
+    }
+    .home-img {
+        order: -1;
+    }
+
+    .home-content{
+        order: 2;
     }
 
     .hero-greeting{
