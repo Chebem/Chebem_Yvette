@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { gsap } from 'gsap';
 import { Routes, Route} from 'react-router-dom';
-import Hero from './pages/Hero';
-import Home from './pages/Home';
+import Home from './pages/Home.jsx';
+import AboutPage from './pages/AboutPage.jsx';
 import ProjectDetail from './pages/ProjectDetail';
 import SpotifyWidget from "./components/SpotifyWidget/SpotifyWidget";
 
@@ -51,8 +51,8 @@ function App() {
       <>
           <div className="line-left"></div>
           <Routes>
-              <Route path="/" element={<Hero />} />
-              <Route path= "/home" element={<Home />} />
+              <Route path="/" element={<Home />} />
+              <Route path= "/about" element={<AboutPage />} />
               <Route path= "/project/:id" element={<ProjectDetail />} />
           </Routes>
           <SpotifyWidget />
