@@ -2,9 +2,9 @@ import { useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Header from '../components/Header/Header';
-import { projects } from '../data/projects.js';
-import HoverButton from '../components/HoverButton/HoverButton';
+import Header from '../../components/Header/Header.jsx';
+import { projects } from '../../data/projects.js';
+import HoverButton from '../../components/HoverButton/HoverButton.jsx';
 import './ProjectDetail.css';
 
 gsap.registerPlugin(ScrollTrigger);
