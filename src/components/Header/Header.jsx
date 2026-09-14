@@ -70,8 +70,8 @@ function Header() {
             {/*Desktop Links*/}
             <div className={`links ${menuOpen ? ' active' : ''}`}>
                 <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
-                <a href="/home#about" onClick={() => setMenuOpen(false)}>About</a>
-                <a href="/home#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+                <a href="/about#about" onClick={() => setMenuOpen(false)}>About</a>
+                <a href="/#projects" onClick={() => setMenuOpen(false)}>Projects</a>
                 <a href="https://m.applykorea.or.kr/news/view?cate=002&num=31695"
                    target="_blank" rel="noopener noreferrer"
                    onClick={() => setMenuOpen(false)}>Blog</a>

@@ -11,7 +11,6 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 10%;
-    background: var(--bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--line);
     transition: background 0.3s ease, box-shadow 0.3s ease;
@@ -29,7 +28,7 @@
 }
 
 .c-letter {
-    font-family: var(--font-heading), 'Poppins', sans-serif;
+    font-family: var(--font-heading), 'Kollektif', sans-serif;
     font-weight: 700;
     font-size: 18px;
     letter-spacing: -0.02em;
@@ -100,7 +99,7 @@
 
 .toggle-track {
     border-radius: 999px;
-    width: 52px;
+    width: 50px;
     height: 28px;
     display: flex;
     padding: 3px;
@@ -108,9 +107,10 @@
     align-items: center;
     transition: background 0.3s ease;
     position: relative;
+    border: 1px solid var(--surface);
 }
 [data-theme='dark'] .toggle-track {
-    background: var(--accent);
+    background: var( --surface);
 }
 
 .toggle-thumb {
@@ -129,6 +129,7 @@
 .theme-toggle:hover {
     border-color: var(--accent);
     color: var(--accent);
+
 }
 
 .lang-toggle-btn
