@@ -34,7 +34,6 @@ function Preloader({ onComplete }) {
             return span;
         });
 
-        const W = window.innerWidth;
         const H = window.innerHeight;
 
         const accent = document.createElement('span');

@@ -127,7 +127,7 @@ function Projects() {
             <div className="projects-body">
                 {/* LEFT — images in normal scroll flow */}
                 <div className="project-img-list">
-                    {projects.map((proj, i) => (
+                    {projects.map((proj) => (
                         <ProjectImage
                             key={proj.id}
                             p={proj}

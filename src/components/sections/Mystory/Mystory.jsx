@@ -98,7 +98,7 @@ function MyStory() {
                 </div>
 
                 <div className="story-right" ref={mapRef}>
-                    <JourneyMap mapRef={mapRef} />
+                    <JourneyMap />
                 </div>
             </div>
 

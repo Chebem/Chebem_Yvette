@@ -11,7 +11,6 @@ import {
 } from "@lineiconshq/free-icons";
 
 import './About.css';
-import HoverButton from '../../HoverButton/HoverButton';
 import {gsap} from "gsap";
 
 // AboutPage Section

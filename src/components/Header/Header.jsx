@@ -57,8 +57,6 @@ function Header() {
             ease: 'back.out(1.7)', //bouncy feel
         });
     };
-    const
-        toggleMenu = () => setMenuOpen(prev => !prev);
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
