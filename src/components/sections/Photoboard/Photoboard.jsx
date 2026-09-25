@@ -39,6 +39,8 @@ function PhotoBoard() {
             return;
         }
 
+        const timelines = [];
+
         cards.forEach((card) => {
             const finalRotate = parseFloat(card.dataset.rotate);
             const fromX = gsap.utils.random(-260, 260);
@@ -79,9 +81,16 @@ function PhotoBoard() {
                     duration: 0.3
                 },
             );
+
+            timelines.push(t1);
         });
 
-        return () => ScrollTrigger.getAll().forEach((t) => t.kill());
+        // Only this section's triggers — ScrollTrigger.getAll() is global and
+        // was also killing KoreaTimeline's pin and MyStory's reveals
+        return () => timelines.forEach((t) => {
+            t.scrollTrigger?.kill();
+            t.kill();
+        });
     }, []);
 
     //Move the tooltip wiht the cursor while its visible

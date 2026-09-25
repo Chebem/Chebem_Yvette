@@ -24,7 +24,6 @@ const ICONS = [
     Code1Outlined,
 ];
 
-// How much of each previous card peeks out (px)
 const PEEK = 24;
 
 export default function KoreaTimeline() {
@@ -37,7 +36,7 @@ export default function KoreaTimeline() {
             const cards = cardsRef.current.filter(Boolean);
             const total = cards.length;
 
-            // All cards except first start BELOW the container
+            // All cards except first starts below the container
             cards.forEach((card, i) => {
                 if (i > 0) gsap.set(card, {
                     y: 700,
@@ -50,7 +49,7 @@ export default function KoreaTimeline() {
             });
 
 
-            // Pin the right column and animate cards sliding up one by one
+            // Pin the right column and animate cards
             const tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: sectionRef.current,
@@ -63,7 +62,7 @@ export default function KoreaTimeline() {
                 },
             });
 
-            // Each card slides up from below to y:0 sequentially
+            // Each card slides up from below
             cards.forEach((card, i) => {
                 if (i === 0) return;
                 tl.to(card, {
@@ -97,7 +96,7 @@ export default function KoreaTimeline() {
                     </div>
                 </div>
 
-                {/* RIGHT — sticky stacking cards, each peeks out */}
+                {/* Right */}
                 <div className="timeline-right" ref={rightRef}>
                     {milestones.map((m, i) => (
                         <div

@@ -19,6 +19,12 @@ export default function JourneyMap() {
     useEffect(() => {
         if (mapRef.current) return;
 
+        // The plane loop reschedules itself, so unmount has to be able to stop it
+        let cancelled = false;
+        let timeoutId = null;
+        let rafId = null;
+        let themeObserver = null;
+
         const map = new Map({
             container: mapContainer.current,
             style: 'https://demotiles.maplibre.org/globe.json',
@@ -32,6 +38,7 @@ export default function JourneyMap() {
         mapRef.current = map;
 
         map.on('load', () => {
+            if (cancelled) return;
             map.resize();
             // ── Great-circle arc ──
             const origin      = turf.point(NIGERIA);
@@ -80,13 +87,15 @@ export default function JourneyMap() {
             const steps = coords.length - 1;
 
             const animate = () => {
+                if (cancelled) return;
+
                 if (counter >= steps) {
                     map.flyTo({
                         center: [65, 22],
                         zoom: 0.8,
                         duration: 2000,
                         easing: t => t * (2 - t) });
-                    setTimeout(() => {
+                    timeoutId = setTimeout(() => {
                         counter = 0;
                         animate();
                         }, 3000);
@@ -94,7 +103,6 @@ export default function JourneyMap() {
                 }
 
                 const currentCoord = coords[counter];
-                const nextCoord    = coords[Math.min(counter + 1, steps)];
 
                 planeMarker.setLngLat(currentCoord);
 
@@ -113,7 +121,9 @@ export default function JourneyMap() {
                 });
 
                 counter++;
-                setTimeout(() => requestAnimationFrame(animate), 60);
+                timeoutId = setTimeout(() => {
+                    rafId = requestAnimationFrame(animate);
+                }, 60);
             };
 
             animate();
@@ -159,9 +169,21 @@ export default function JourneyMap() {
                 }
             };
           applyTheme();
+
+            // Re-apply when the Header flips data-theme, otherwise the globe
+            // keeps the old palette until a reload
+            themeObserver = new MutationObserver(applyTheme);
+            themeObserver.observe(document.documentElement, {
+                attributes: true,
+                attributeFilter: ['data-theme'],
+            });
         });
 
         return () => {
+            cancelled = true;
+            if (timeoutId) clearTimeout(timeoutId);
+            if (rafId) cancelAnimationFrame(rafId);
+            themeObserver?.disconnect();
             mapRef.current?.remove();
             mapRef.current = null;
         };

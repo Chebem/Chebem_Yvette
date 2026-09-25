@@ -7,6 +7,13 @@ function Preloader({ onComplete }) {
     const circleRef = useRef(null);
     const [done, setDone] = useState(false);
 
+    // Callers pass an inline arrow, so onComplete changes identity every render.
+    // Keeping it in a ref stops that from re-running the whole animation.
+    const onCompleteRef = useRef(onComplete);
+    useEffect(() => {
+        onCompleteRef.current = onComplete;
+    }, [onComplete]);
+
     useEffect(() => {
         const word1 = 'Chebem';
         const word2 = 'Yvette';
@@ -65,7 +72,7 @@ function Preloader({ onComplete }) {
         const t1 = gsap.timeline({
             onComplete: () => {
                 setDone(true);
-                onComplete?.();
+                onCompleteRef.current?.();
             },
         });
 
@@ -188,8 +195,16 @@ function Preloader({ onComplete }) {
             })
             .to(stage, { opacity: 0, duration: 0.5 }, '+=0.4');
 
-        return () => t1.kill();
-    }, [onComplete]);
+        return () => {
+            t1.kill();
+            // The effect builds these nodes itself, so it has to remove them —
+            // otherwise a re-run (StrictMode's double invoke) stacks a second
+            // set of letters on top of the first
+            wrap.remove();
+            accent.remove();
+            impactGlow.remove();
+        };
+    }, []);
 
     if (done) return null;
 
