@@ -22,6 +22,13 @@ function Home() {
     const [showPreloader, setShowPreloader] = useState(true);
     const photoWrapRef = useRef(null);
 
+    // Logo click in the Header replays the intro — the preloader state lives here
+    useEffect(() => {
+        const replay = () => setShowPreloader(true);
+        window.addEventListener('replay-intro', replay);
+        return () => window.removeEventListener('replay-intro', replay);
+    }, []);
+
     // Magnetic hover independent of the preloader
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;

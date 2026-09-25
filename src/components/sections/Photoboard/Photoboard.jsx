@@ -113,7 +113,7 @@ function PhotoBoard() {
                         ref={(el) => (cardRef.current[i] = el)}
                         data-rotate={layout[i].rotate}
                         style={{ top: layout[i].top, left: layout[i].left }}
-                        onMouseUp={handleCardEnter(photo.caption)}
+                        onMouseEnter={handleCardEnter(photo.caption)}
                         onMouseLeave={handleCardLeave}
                     >
                         <img src={photo.src} alt={photo.caption} />

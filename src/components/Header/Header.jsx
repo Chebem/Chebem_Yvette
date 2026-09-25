@@ -1,5 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { gsap } from 'gsap';
 import { Lineicons } from "@lineiconshq/react-lineicons";
 import {
@@ -41,7 +41,7 @@ function Header() {
     //Preloader- reload on Logo Click
     const handleLogoClick = () => {
         navigate('/');
-        window.dispatchEvent(new Event('replay-into'));
+        window.dispatchEvent(new Event('replay-intro'));
     }
 
     // Dark/Light Mode Toggle Button animation
@@ -57,7 +57,8 @@ function Header() {
             ease: 'back.out(1.7)', //bouncy feel
         });
     };
-    const toggleMenu = () => setMenuOpen(prev => !prev);
+    const
+        toggleMenu = () => setMenuOpen(prev => !prev);
 
     return (
         <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -69,9 +70,9 @@ function Header() {
 
             {/*Desktop Links*/}
             <div className={`links ${menuOpen ? ' active' : ''}`}>
-                <a href="/" onClick={() => setMenuOpen(false)}>Home</a>
-                <a href="/about#about" onClick={() => setMenuOpen(false)}>About</a>
-                <a href="/#projects" onClick={() => setMenuOpen(false)}>Projects</a>
+                <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
+                <Link to="/about#about" onClick={() => setMenuOpen(false)}>About</Link>
+                <Link to="/#projects" onClick={() => setMenuOpen(false)}>Projects</Link>
                 <a href="https://m.applykorea.or.kr/news/view?cate=002&num=31695"
                    target="_blank" rel="noopener noreferrer"
                    onClick={() => setMenuOpen(false)}>Blog</a>
@@ -93,7 +94,7 @@ function Header() {
              <HoverButton
                     label="Contact Me"
                     onClick={() => {
-                        navigate('/home');
+                        navigate('/');
                         setTimeout(() => {
                             document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
                         }, 100);

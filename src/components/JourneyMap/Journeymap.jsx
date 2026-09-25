@@ -5,7 +5,7 @@ import lottie from 'lottie-web';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import planeAnimation from './plane.json';
-import './JourneyMap.css';
+import './Journeymap.css';
 
 setWorkerUrl(workerUrl);
 

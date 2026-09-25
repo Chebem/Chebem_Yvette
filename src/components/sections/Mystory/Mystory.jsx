@@ -3,7 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HoverButton from '../../HoverButton/HoverButton';
 import JourneyMap from '../../JourneyMap/Journeymap'
-import './MyStory.css';
+import './Mystory.css';
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -10,12 +10,11 @@ import SpotifyWidget from "./components/SpotifyWidget/SpotifyWidget";
 
 function App() {
     const [introKey, setIntroKey] = useState(0);
-    const [showIntro, setShowIntro] = useState(true);
 
 
     useEffect(() => {
         //Respect user's motion preference
-        const prefersReducedMotion = window.matchMedia('prefers-reduced-motion: reduce').matches;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
         if (prefersReducedMotion) {
             //Skip animations
@@ -24,26 +23,27 @@ function App() {
             return;
         }
 
-        gsap.to('.line-left', {
-           height: '100%',
-           duration: 1.2,
-           ease: 'power3.inOut',
-           delay: 0.2,
-        });
+        // fromTo, not to — on replay the lines are already at 100%,
+        // so they need resetting or the tween has nothing to animate
+        const leftTween = gsap.fromTo('.line-left',
+            { height: 0 },
+            { height: '100%', duration: 1.2, ease: 'power3.inOut', delay: 0.2 }
+        );
 
-        gsap.to('.line-top', {
-            width: '100%',
-            duration: 1.2,
-            ease: 'power3.inOut',
-            delay: 0.2,
-        });
+        const topTween = gsap.fromTo('.line-top',
+            { width: 0 },
+            { width: '100%', duration: 1.2, ease: 'power3.inOut', delay: 0.2 }
+        );
+
+        return () => {
+            leftTween.kill();
+            topTween.kill();
+        };
     }, [introKey]);
 
     useEffect(() => {
-        const replay = () => {
-            setShowIntro(true);
-            setIntroKey((k) => k + 1);
-        };
+        const replay = () => setIntroKey((k) => k + 1);
+        window.addEventListener('replay-intro', replay);
         return () => window.removeEventListener('replay-intro', replay);
     }, []);
 
