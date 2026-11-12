@@ -259,24 +259,229 @@
 
 /* Screenshots */
 .pd-screenshots {
-    padding: 4rem 0;
+    padding: 4rem 0 5rem;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
 }
 
+.pd-screenshots .pd-block-label {
+    padding: 0 10%;
+}
+
+/* Horizontal filmstrip — a few shots visible, the rest scrolled to */
+.pd-strip-wrap {
+    position: relative;
+}
+
 .pd-screenshots-grid {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1rem 10% 1.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-left: 10%;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--line) transparent;
+}
+
+.pd-screenshots-grid::-webkit-scrollbar { height: 6px; }
+.pd-screenshots-grid::-webkit-scrollbar-track { background: transparent; }
+.pd-screenshots-grid::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 100px;
+}
+.pd-screenshots-grid::-webkit-scrollbar-thumb:hover {
+    background: var(--text-muted);
+}
+
+.pd-shot {
+    margin: 0;
+    flex: 0 0 auto;
+    /* Portrait is the default: lazy shots still off-screen have no
+       data-orientation yet, and phone captures are the common case, so
+       they size correctly before their onLoad ever fires. */
+    width: 230px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+/* Widened only once a landscape image actually reports its size */
+.pd-shot[data-orientation="landscape"] {
+    width: 420px;
+}
+
+/* Strip arrows */
+.pd-strip-nav {
+    position: absolute;
+    top: 42%;
+    z-index: 3;
+    width: 42px;
+    height: 42px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.5rem;
-    padding: 1rem 10%;
+    place-items: center;
+    font-size: 1.6rem;
+    line-height: 1;
+    padding-bottom: 4px;
+    color: var(--text-main);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: background 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+}
+
+.pd-strip-nav:hover {
+    background: var(--bg);
+    transform: scale(1.06);
+}
+
+.pd-strip-nav[disabled] {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.pd-strip-nav.prev { left: calc(10% - 21px); }
+.pd-strip-nav.next { right: calc(10% - 21px); }
+
+.pd-shot-btn {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    border-radius: 12px;
+    cursor: zoom-in;
+}
+
+.pd-shot-btn:focus-visible {
+    outline: 2px solid var(--project-color, var(--accent-dark));
+    outline-offset: 3px;
 }
 
 .pd-screenshot {
     width: 100%;
+    height: auto;
+    display: block;
     border-radius: 12px;
     border: 1px solid var(--line);
+    background: var(--surface);
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.pd-shot-btn:hover .pd-screenshot {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.14);
+}
+
+.pd-shot figcaption {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Lightbox */
+.pd-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    background: rgba(8, 7, 12, 0.93);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4vh 6vw;
+    animation: pd-lightbox-in 0.2s ease;
+}
+
+@keyframes pd-lightbox-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.pd-lightbox-inner {
+    margin: 0;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.pd-lightbox-inner img {
+    max-width: 100%;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
     display: block;
+    border-radius: 10px;
+}
+
+.pd-lightbox-inner figcaption {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    color: #EDEBF5;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.pd-lightbox-count {
+    font-size: 0.78rem;
+    opacity: 0.6;
+}
+
+.pd-lightbox-close,
+.pd-lightbox-nav {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.pd-lightbox-close:hover,
+.pd-lightbox-nav:hover {
+    background: rgba(255, 255, 255, 0.22);
+}
+
+.pd-lightbox-close {
+    top: 3vh;
+    right: 4vw;
+    width: 40px;
+    height: 40px;
+    font-size: 0.95rem;
+}
+
+.pd-lightbox-nav {
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 46px;
+    font-size: 1.9rem;
+    line-height: 1;
+    padding-bottom: 4px;
+}
+
+.pd-lightbox-nav.prev { left: 2vw; }
+.pd-lightbox-nav.next { right: 2vw; }
+
+@media (prefers-reduced-motion: reduce) {
+    .pd-screenshot { transition: none; }
+    .pd-shot-btn:hover .pd-screenshot { transform: none; }
+    .pd-lightbox { animation: none; }
 }
 
 /* Not found */
@@ -306,5 +511,15 @@
     }
     .pd-right { padding: 3rem 0; }
     .pd-story-row { grid-template-columns: 1fr; gap: 0.5rem; }
-    .pd-screenshots-grid { padding: 1rem 6%; }
+    .pd-screenshots-grid { padding: 1rem 6%; gap: 1.25rem; }
+    .pd-screenshots .pd-block-label { padding: 0 6%; }
+    .pd-screenshots-grid { scroll-padding-left: 6%; }
+    .pd-shot { width: 200px; }
+    .pd-shot[data-orientation="landscape"] { width: 300px; }
+    /* arrows would sit off-screen at this width; swipe instead */
+    .pd-strip-nav { display: none; }
+    .pd-lightbox { padding: 2vh 3vw; }
+    .pd-lightbox-nav { width: 38px; height: 38px; font-size: 1.5rem; }
+    .pd-lightbox-nav.prev { left: 1vw; }
+    .pd-lightbox-nav.next { right: 1vw; }
 }

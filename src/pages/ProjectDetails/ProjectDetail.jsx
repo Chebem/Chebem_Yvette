@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -14,8 +14,40 @@ export default function ProjectDetail() {
     const navigate = useNavigate();
     const pageRef   = useRef(null);
     const heroImgRef = useRef(null);
+    const stripRef  = useRef(null);
+    const [atStart, setAtStart] = useState(true);
+    const [atEnd, setAtEnd] = useState(false);
 
     const project = projects.find((p) => p.id === id);
+
+    // Screenshots accept either '/path.png' or { src, caption }
+    const shots = (project?.screenshots ?? []).map((s) =>
+        typeof s === 'string' ? { src: s, caption: '' } : s
+    );
+    const [lightbox, setLightbox] = useState(null);
+
+    // Arriving from a project card halfway down the list would otherwise
+    // land halfway down this page
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
+
+    useEffect(() => {
+        if (lightbox === null) return;
+
+        const onKey = (e) => {
+            if (e.key === 'Escape') setLightbox(null);
+            if (e.key === 'ArrowRight') setLightbox((i) => (i + 1) % shots.length);
+            if (e.key === 'ArrowLeft') setLightbox((i) => (i - 1 + shots.length) % shots.length);
+        };
+
+        window.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            window.removeEventListener('keydown', onKey);
+            document.body.style.overflow = '';
+        };
+    }, [lightbox, shots.length]);
 
     useEffect(() => {
         if (!project) return;
@@ -133,6 +165,34 @@ export default function ProjectDetail() {
     }
 
     const tags = project.stack.split(', ');
+
+    // Phone captures are portrait, web captures landscape — tag each so the
+    // grid can size them differently instead of stretching everything alike
+    const handleShotLoad = (e) => {
+        const img = e.currentTarget;
+        const figure = img.closest('.pd-shot');
+        if (figure) {
+            figure.dataset.orientation =
+                img.naturalHeight > img.naturalWidth ? 'portrait' : 'landscape';
+        }
+    };
+
+    const step = (delta) =>
+        setLightbox((i) => (i + delta + shots.length) % shots.length);
+
+    // Scroll the filmstrip by roughly a screenful
+    const scrollStrip = (dir) => {
+        const el = stripRef.current;
+        if (!el) return;
+        el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: 'smooth' });
+    };
+
+    // Hide the arrow you've run out of room for
+    const handleStripScroll = (e) => {
+        const el = e.currentTarget;
+        setAtStart(el.scrollLeft <= 2);
+        setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
+    };
 
     return (
         <>
@@ -252,18 +312,109 @@ export default function ProjectDetail() {
                 </section>
 
                 {/* Screenshots ── */}
-                {project.screenshots && project.screenshots.length > 0 && (
+                {shots.length > 0 && (
                     <section className="pd-screenshots">
-                        <span className="pd-block-label" style={{ padding: '0 10%' }}>SCREENSHOTS</span>
-                        <div className="pd-screenshots-grid">
-                            {project.screenshots.map((src, i) => (
-                                <img key={i} src={src} alt={`Screenshot ${i + 1}`} className="pd-screenshot" />
+                        <span className="pd-block-label">SCREENSHOTS</span>
+                        <div className="pd-strip-wrap">
+                        <button
+                            type="button"
+                            className="pd-strip-nav prev"
+                            onClick={() => scrollStrip(-1)}
+                            disabled={atStart}
+                            aria-label="Scroll screenshots left"
+                        >
+                            ‹
+                        </button>
+                        <div className="pd-screenshots-grid" ref={stripRef} onScroll={handleStripScroll}>
+                            {shots.map((shot, i) => (
+                                <figure className="pd-shot" key={`${shot.src}-${i}`}>
+                                    <button
+                                        type="button"
+                                        className="pd-shot-btn"
+                                        onClick={() => setLightbox(i)}
+                                        aria-label={`Enlarge screenshot ${i + 1} of ${shots.length}`}
+                                    >
+                                        <img
+                                            src={shot.src}
+                                            alt={shot.caption || `${project.title} screenshot ${i + 1}`}
+                                            className="pd-screenshot"
+                                            loading="lazy"
+                                            decoding="async"
+                                            onLoad={handleShotLoad}
+                                        />
+                                    </button>
+                                    {shot.caption && <figcaption>{shot.caption}</figcaption>}
+                                </figure>
                             ))}
+                        </div>
+                        <button
+                            type="button"
+                            className="pd-strip-nav next"
+                            onClick={() => scrollStrip(1)}
+                            disabled={atEnd}
+                            aria-label="Scroll screenshots right"
+                        >
+                            ›
+                        </button>
                         </div>
                     </section>
                 )}
 
             </div>
+
+            {/* Lightbox */}
+            {lightbox !== null && shots[lightbox] && (
+                <div
+                    className="pd-lightbox"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label="Screenshot viewer"
+                    onClick={() => setLightbox(null)}
+                >
+                    <button
+                        className="pd-lightbox-close"
+                        onClick={() => setLightbox(null)}
+                        aria-label="Close viewer"
+                    >
+                        ✕
+                    </button>
+
+                    {shots.length > 1 && (
+                        <>
+                            <button
+                                className="pd-lightbox-nav prev"
+                                onClick={(e) => { e.stopPropagation(); step(-1); }}
+                                aria-label="Previous screenshot"
+                            >
+                                ‹
+                            </button>
+                            <button
+                                className="pd-lightbox-nav next"
+                                onClick={(e) => { e.stopPropagation(); step(1); }}
+                                aria-label="Next screenshot"
+                            >
+                                ›
+                            </button>
+                        </>
+                    )}
+
+                    <figure
+                        className="pd-lightbox-inner"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <img
+                            src={shots[lightbox].src}
+                            alt={shots[lightbox].caption || `Screenshot ${lightbox + 1}`}
+                        />
+                        <figcaption>
+                            {shots[lightbox].caption && <span>{shots[lightbox].caption}</span>}
+                            <span className="pd-lightbox-count">
+                                {lightbox + 1} / {shots.length}
+                            </span>
+                        </figcaption>
+                    </figure>
+                </div>
+            )}
         </>
     );
 }
