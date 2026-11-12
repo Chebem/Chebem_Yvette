@@ -1,0 +1,45 @@
+.hover-btn {
+    background: rgba(138, 79, 255, 0.15);
+    color: var(--text-main);
+    border: none;
+    border-radius: 999px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-family: var(--font-heading), sans-serif;
+    font-weight: 600;
+    gap: 8px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.hover-btn-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text-main);
+    display: inline-block;
+    flex-shrink: 0;
+    transition: background 0.2s ease;
+}
+
+.hover-btn:hover .hover-btn-dot {
+    background: var(--bg);
+}
+
+.hover-btn:hover {
+    background: var(--text-main);
+    color: var(--bg);
+}
+
+[data-theme='dark'] .hover-btn {
+    background: rgba(138, 79, 255, 0.25);
+    color: var(--text-main);
+}
+
+[data-theme='dark'] .hover-btn:hover {
+    background: var(--text-main);
+    color: var(--bg);
+}

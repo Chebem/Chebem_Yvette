@@ -1,0 +1,260 @@
+.projects-section {
+    padding: 5rem 10%;
+}
+
+.projects-section h2 {
+    color: var(--text-main);
+}
+
+/* ── Two-column layout ── */
+
+.projects-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+/* LEFT — images stack vertically, normal scroll */
+
+.project-img-list {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
+}
+
+.project-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: none;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease;
+}
+
+.project-img-wrap:hover {
+    box-shadow:
+            0 0 0 2px var(--card-color),
+            0 0 24px rgba(138, 79, 255, 0.15);
+}
+
+.project-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.35s ease, transform 0.4s ease;
+}
+
+.project-img-wrap:hover img {
+    filter: brightness(0.5);
+    transform: scale(1.04);
+}
+
+.cursor-follower {
+    position: absolute;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent-dark);
+    color: var(--bg);
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--font-heading), sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+    transition: opacity 0.2s ease;
+    letter-spacing: 0.05rem;
+}
+
+.project-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+}
+
+.project-overlay-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.project-img-wrap:hover .project-overlay-stack {
+    opacity: 1;
+}
+
+.overlay-stack-tag {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.22rem 0.65rem;
+    border-radius: 20px;
+}
+
+/* RIGHT — sticky single panel */
+
+.project-info-sticky {
+    flex: 1;
+    position: sticky;
+    top: 35vh;
+    height: fit-content;
+}
+
+.project-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+/* Index row */
+
+.project-info-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.project-index {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+
+/* Clips the slot-scroll so the outgoing/incoming number
+   doesn't spill outside its own line height */
+.index-slot {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em;
+    line-height: 1.2em;
+    vertical-align: middle;
+}
+
+.index-slot span {
+    display: inline-block;
+}
+
+.project-year {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.project-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06rem;
+    text-transform: uppercase;
+    background: rgba(138, 79, 255, 0.12);
+    color: var(--accent-dark);
+    border: 1px solid rgba(138, 79, 255, 0.3);
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.project-info h3 {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 700;
+    color: var(--text-main);
+    line-height: 1.3;
+    margin-bottom: 8px;
+}
+
+.project-info p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+}
+
+.project-info-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.see-more-link {
+    font-size: 0.85rem;
+    font-family: var(--font-body), 'Poppins', sans-serif;
+    color: var(--text-main);
+    font-weight: 600;
+    cursor: pointer;
+    transition: letter-spacing 0.2s;
+    display: inline-block;
+}
+
+.see-more-link:hover {
+    letter-spacing: 1px;
+}
+
+.project-icon-links {
+    display: flex;
+    gap: 8px;
+}
+
+.project-icon-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+    border: 1px solid var(--line);
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.project-icon-links a:hover {
+    border-color: var(--accent-dark);
+    color: var(--accent-dark);
+}
+
+/* ── Mobile ── */
+
+@media (max-width: 768px) {
+    .projects-section {
+        padding: 4rem 6%;
+    }
+
+    .projects-body {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .project-img-list {
+        gap: 2rem;
+        order: 2;
+    }
+
+    .project-info-sticky {
+        position: static;
+        order: 1;
+    }
+
+    .project-img-wrap {
+        cursor: pointer;
+    }
+
+    .cursor-follower {
+        display: none;
+    }
+}
