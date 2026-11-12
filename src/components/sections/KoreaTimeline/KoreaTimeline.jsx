@@ -24,8 +24,6 @@ const ICONS = [
     Code1Outlined,
 ];
 
-const PEEK = 24;
-
 export default function KoreaTimeline() {
     const sectionRef = useRef(null);
     const rightRef = useRef(null);
