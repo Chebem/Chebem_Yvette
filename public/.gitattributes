@@ -1,1 +1,10 @@
 * text eol=lf
+*.png  binary
+ *.PNG  binary
+ *.jpg  binary
+ *.jpeg binary
+ *.gif  binary
+ *.webp binary
+ *.svg  text
+ *.pdf  binary
+ *.json text
