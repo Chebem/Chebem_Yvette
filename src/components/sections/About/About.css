@@ -26,7 +26,8 @@
 .about-statement {
     font-size: 34px;
     font-weight: 700;
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;   /* same chunky serif as the hero */
     color: var(--text-main);
     line-height: 1.2;
     letter-spacing: -0.02em;
@@ -271,4 +272,9 @@
         width: 280px;
         height: 500px;
     }
+}
+/* The * reset gives <mark> the body font; keep highlighted words in the same serif as the sentence */
+.about-statement mark {
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
 }

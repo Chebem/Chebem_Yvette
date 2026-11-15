@@ -42,7 +42,7 @@ function ProjectImage({ p, onClick }) {
             <div className="cursor-follower" ref={followerRef} style={{ opacity: visible ? 1 : 0 }}>
                 View
             </div>
-            <img src={p.img} alt={p.title} style={{ objectFit: p.imgFit || 'cover' }} />
+            <img src={p.img} alt={p.title} loading="lazy" decoding="async" style={{ objectFit: p.imgFit || 'cover' }} />
             <div className="project-overlay">
                 <div className="project-overlay-stack">
                     {p.stack.split(', ').slice(0, 4).map(tag => (

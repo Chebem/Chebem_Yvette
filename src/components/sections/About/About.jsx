@@ -80,7 +80,7 @@ function About () {
                                     <div className="about-phone-notch"></div>
 
                                     <div className="about-phone-img">
-                                        <img src="/images/Profile_pic.png" alt="Chebem Yvette" />
+                                        <img src="/images/Profile_pic.jpg" alt="Chebem Yvette" />
                                     </div>
                                     <div className="about-phone-bottom">
                                         <div className="about-phone-name-row">

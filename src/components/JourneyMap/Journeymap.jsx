@@ -5,6 +5,7 @@ import lottie from 'lottie-web';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import planeAnimation from './plane.json';
+import { gsap, useGSAP } from '../../lib/gsap';
 import './Journeymap.css';
 
 setWorkerUrl(workerUrl);
@@ -12,9 +13,25 @@ setWorkerUrl(workerUrl);
 const NIGERIA = [3.3792, 6.5244];
 const KOREA   = [127.7669, 37.8813];
 
-export default function JourneyMap() {
+// The route is just maths on two constants, so compute it once, outside React
+const ROUTE  = turf.greatCircle(turf.point(NIGERIA), turf.point(KOREA), { npoints: 100 });
+const COORDS = ROUTE.geometry.coordinates;
+
+// Story mode: where the plane is along the route (0 → 1), how close the camera is,
+// and how long the move takes, per step
+const STORY_STOPS = [
+    { along: 0, zoom: 1.4, duration: 1.2 },  // still globe, waiting in Lagos
+    { along: 1, zoom: 3,   duration: 4   },  // the flight: Lagos → Korea, globe turning underneath
+];
+
+// chapter = null → the original looping flight (My Story).
+// chapter = 0/1   → story mode, driven by the hero's scroll.
+export default function JourneyMap({ chapter = null }) {
     const mapContainer = useRef(null);
     const mapRef       = useRef(null);
+    const planeRef     = useRef(null);
+    const camera       = useRef({ i: 0, zoom: STORY_STOPS[0].zoom });
+    const storyMode    = useRef(chapter !== null);  // decided once, at first render
 
     useEffect(() => {
         if (mapRef.current) return;
@@ -28,8 +45,8 @@ export default function JourneyMap() {
         const map = new Map({
             container: mapContainer.current,
             style: 'https://demotiles.maplibre.org/globe.json',
-            center: [65, 22],
-            zoom: 0.8,
+            center: storyMode.current ? NIGERIA : [65, 22],
+            zoom: storyMode.current ? STORY_STOPS[0].zoom : 0.8,
             projection: { type: 'globe' },
             attributionControl: false,
             interactive: false,
@@ -41,12 +58,8 @@ export default function JourneyMap() {
             if (cancelled) return;
             map.resize();
             // ── Great-circle arc ──
-            const origin      = turf.point(NIGERIA);
-            const destination = turf.point(KOREA);
-            const greatCircle = turf.greatCircle(origin, destination, { npoints: 100 });
-            const coords      = greatCircle.geometry.coordinates;
-
-            map.addSource('flight-path', { type: 'geojson', data: greatCircle });
+            const coords = COORDS;
+            map.addSource('flight-path', { type: 'geojson', data: ROUTE });
 
             map.addLayer({
                 id: 'flight-glow',
@@ -81,6 +94,7 @@ export default function JourneyMap() {
             })
                 .setLngLat(NIGERIA)
                 .addTo(map);
+            planeRef.current = planeMarker;
 
             // ── Animate plane + camera ──
             let counter = 0;
@@ -126,7 +140,8 @@ export default function JourneyMap() {
                 }, 60);
             };
 
-            animate();
+            // Story mode is driven by the chapter prop, not the endless loop
+            if (!storyMode.current) animate();
 
             // ── Pin markers ──
             const makePin = (flag, label) => {
@@ -188,6 +203,30 @@ export default function JourneyMap() {
             mapRef.current = null;
         };
     }, []);
+
+    // Story mode: fly the plane (and turn the globe with it) to this chapter's stop
+    useGSAP(() => {
+        if (chapter === null) return;
+        const stop = STORY_STOPS[chapter];
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        const update = () => {
+            const point = COORDS[Math.round(camera.current.i)];
+            planeRef.current?.setLngLat(point);
+            mapRef.current?.jumpTo({ center: point, zoom: camera.current.zoom });
+        };
+
+        // GSAP tweens plain numbers here; every frame the plane and camera follow them
+        gsap.to(camera.current, {
+            i: stop.along * (COORDS.length - 1),
+            zoom: stop.zoom,
+            duration: reduce ? 0 : stop.duration,
+            ease: 'power1.inOut',
+            overwrite: true,     // scrolling fast? start from wherever the last flight got to
+            onUpdate: update,
+            onComplete: update,
+        });
+    }, { dependencies: [chapter] });
 
     return (
         <div className="journey-map-container">
