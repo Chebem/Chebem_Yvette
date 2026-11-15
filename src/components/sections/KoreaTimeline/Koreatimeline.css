@@ -11,7 +11,8 @@
     position: absolute;
     top: 2rem;
     right: 5%;
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;   /* same chunky serif as the hero */
     font-size: clamp(6rem, 15vw, 14rem);
     font-weight: 700;
     color: var(--text-main);
@@ -59,7 +60,8 @@
 }
 
 .timeline-title {
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;   /* same chunky serif as the hero */
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     font-weight: 700;
     color: var(--text-main);
@@ -83,7 +85,8 @@
 }
 
 .timeline-counter-num {
-    font-family: var(--font-heading), sans-serif;
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;   /* same chunky serif as the hero */
     font-size: 3rem;
     font-weight: 700;
     color: var(--accent-dark);

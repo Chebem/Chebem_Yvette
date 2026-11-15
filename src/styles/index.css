@@ -1,5 +1,5 @@
 /* GLOBAL STYLES*/
-@import url('./fonts/chillax.css');
+/* Fonts load from index.html: Satoshi (Fontshare) for text, Fraunces (Google) for display */
 
 /* CSS VARIABLES */
 :root {
@@ -10,9 +10,11 @@
     --accent: rgba(138, 79, 255, 0.4);
     --accent-dark: #6D28D9;
     --line: #E1E2EA;
-    --font-body: 'Chillax-Variable', sans-serif;
-    --font-heading: 'Chillax-Variable', sans-serif;
+    --font-body: 'Satoshi', sans-serif;
+    --font-heading: 'Satoshi', sans-serif;      /* logo, nav, buttons, card titles */
     --card-color: #8A4FFF;
+    --font-display: 'Fraunces', Georgia, serif;
+    --accent-text: #6D28D9;
 }
 
 /* Dark mode */
@@ -24,6 +26,7 @@
     --accent: #C4B5FD;
     --accent-dark: #6D28D9;
     --line: #2A2838;
+    --accent-text: #C4B5FD;   /* #6D28D9 is too dark to read on the dark background */
 }
 
 
@@ -83,6 +86,27 @@ h1, h2, h3, h4
     letter-spacing: -0.02em;
 }
 
+/* Big editorial headlines: <h1 class="display">Line one <em>line two</em></h1> */
+.display {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;  /* SOFT rounds the corners for the chunky look */
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+}
+/* index.css gives every <span> the body font at weight 400; lines inside a display title must keep the serif */
+.display span {
+    font-family: var(--font-display);
+    font-weight: inherit;
+}
+.display em {
+    font-family: var(--font-display);   /* needed: the * reset would give <em> the body font */
+    font-style: italic;
+    font-weight: 600;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100, 'WONK' 1;  /* WONK = the quirky italic letters */
+    color: var(--accent-text);
+}
+
 /* SHARED SECTION HEADER */
 .section-heading{
     display: flex;
@@ -92,6 +116,8 @@ h1, h2, h3, h4
 }
 
 .section-heading h2{
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
     font-size: 1.8rem;
     color: var(--text-main);
     white-space: nowrap;

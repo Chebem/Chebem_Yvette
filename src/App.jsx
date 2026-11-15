@@ -4,7 +4,7 @@ import { Routes, Route} from 'react-router-dom';
 import Home from './pages/Home/Home.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ProjectDetail from './pages/ProjectDetails/ProjectDetail.jsx';
-import SpotifyWidget from "./components/SpotifyWidget/SpotifyWidget";
+import MusicToggle from "./components/MusicToggle/MusicToggle";
 
 
 
@@ -55,7 +55,7 @@ function App() {
               <Route path= "/about" element={<AboutPage />} />
               <Route path= "/project/:id" element={<ProjectDetail />} />
           </Routes>
-          <SpotifyWidget />
+          <MusicToggle />
       </>
   );
 }
