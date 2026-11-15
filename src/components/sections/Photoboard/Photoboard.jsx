@@ -125,7 +125,7 @@ function PhotoBoard() {
                         onMouseEnter={handleCardEnter(photo.caption)}
                         onMouseLeave={handleCardLeave}
                     >
-                        <img src={photo.src} alt={photo.caption} />
+                        <img src={photo.src} alt={photo.caption} loading="lazy" decoding="async" />
                     </div>
                 ))}
                 </div>

@@ -135,7 +135,7 @@ export default function HeroStory() {
                 <div className="hs-slot">
                     <div className={`hs-visual ${isStory ? 'show-map' : 'show-photo'}`} ref={visualRef}>
                         <div className="hs-layer hs-photo">
-                            <img src="/images/Hero1.jpeg" alt="Chebem Yvette smiling outside a hanok in Korea" />
+                            <img src="/images/hero.jpg" alt="Chebem Yvette smiling outside a hanok in Korea" />
                         </div>
                         <div className="hs-layer hs-map" aria-hidden={!isStory}>
                             <JourneyMap chapter={mapStep} />
