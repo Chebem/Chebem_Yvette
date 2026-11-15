@@ -118,43 +118,75 @@ export const projects = [
         screenshots: [],
     },
     {
-        id: 'price-comparison',
-        title: 'The Time',
-        short: 'Full-stack price comparison platform with multilingual AI chatbot. Live at the-time-tt.web.app',
-        desc: 'A price comparison platform that helps shoppers find the best deals across multiple online stores — with an AI chatbot assistant that answers product questions, recommends the best deal, and supports multiple languages for international users.',
-        type: 'Full Stack · Web',
-        role: 'Full Stack Developer',
-        platform: 'Web',
-        year: '2024',
-        stack: 'React, Node.js, Express, MongoDB, OpenAI API, Firebase, HTML, CSS, JavaScript',
-        img: '/images/TT_portfolio.jpeg',
-        color: '#c2410c',
+        id: 'ct-unveiled',
+        title: 'C & T: The Unveiling',
+        short: 'A scratch-to-reveal digital wedding invitation for a Nigerian couple, with GSAP animation and a built-in RSVP.',
+        desc: 'A one-page, mobile-first wedding invitation for Chinecherem & Tobenna. Guests open a private link, scratch away a gold foil panel with their finger to uncover the date, and the page unfolds into the church service, reception, schedule and RSVP; all styled from the couple\'s printed save-the-date.',
+        type: 'Web · Client Project',
+        role: 'Designer · Front-end Developer',
+        platform: 'Web (mobile-first)',
+        year: '2026',
+        stack: 'React, Vite, GSAP, ScrollTrigger, HTML Canvas, Pointer Events, Netlify Forms, Netlify DNS',
+        img: '/images/gallery/Screenshots/CTUnveiled/Revealed.png',
+        color: '#8E1F5E',
+        paper: null,
+        venue: null,
         features: [
-            'Price comparison across multiple online vendors in one place',
-            'Automatic best deal highlighting based on price and value',
-            'AI chatbot, product info, deal recommendations, direct links',
-            'Multilingual chatbot support for international users',
-            'Product browsing by category; Men, Women, Electronics and more',
-            'Product images, descriptions and prices at a glance',
-            'Fully responsive; desktop and mobile optimised',
+            'Scratch-to-reveal gold foil, drawn on canvas and built for touch',
+            'Auto-completes once most of the foil is cleared',
+            '"Reveal without scratching" button and screen-reader support',
+            'GSAP intro, reveal and scroll animations, with reduced-motion support',
+            'Church service and reception cards with one-tap map links',
+            'RSVP form with Netlify Forms; no server or database',
+            'Add-to-calendar file generated in the browser',
+            'Theme taken from the couple\'s save-the-date: deep berry, olive, blush and champagne gold',
+            'All content in one config file, so the site can be reused for another couple',
         ],
         story: [
             {
-                heading: 'The frustration that started it',
-                body: 'Comparing prices online means opening ten tabs, switching between sites, trying to remember which one had the better deal. Existing comparison tools were cluttered, English-only, or gave you a data dump instead of an actual recommendation. I wanted something that just answered the question.',
+                heading: 'Some projects choose you',
+                body: 'My twin sister was getting married, and she already knew what she wanted: she came to me with a reference, a scratch-to-reveal invitation she had fallen in love with. ' +
+                    'Being her sister and a developer, there was never really a question of who would build it. It had to be me. ' +
+                    'She also had a printed save-the-date, a CT monogram, watercolour berry roses and an olive-and-plum palette and the brief became simple: ' +
+                    'an invitation guests could open from WhatsApp that felt like an extension of that card, not a generic wedding template.',
             },
             {
-                heading: 'Adding language to the search',
-                body: 'The AI chatbot layer was the part I was most interested in. Instead of filters and dropdowns, users can ask natural questions and get a direct link to the best deal. Multilingual support meant international users were not excluded from a tool built for everyone.',
+                heading: 'One moment worth sharing',
+                body: 'I built the whole page around a single interaction: a gold foil panel that hides the date until the guest scratches it away. ' +
+                    'The idea was inspired by scratch-to-reveal invitation templates, but the design, assets and code are my own. ' +
+                    'Everything around the foil is deliberately calm, so the reveal is the moment people remember and send to each other.',
             },
             {
-                heading: 'What it taught me',
-                body: 'This was my first time combining a full backend (Node/Express/MongoDB) with an AI layer (OpenAI API) in a single product. The architecture decisions here — how to store products, how to structure the chatbot context, how to handle multilingual queries — directly shaped how I approached HaruBuddy later.',
+                heading: 'Making a scratch card feel right on a phone',
+                body: 'Scratching sounds simple until you test it on a real phone. The page tried to scroll instead of scratch, fast swipes left gaps, and the foil looked blurry on high-resolution screens. ' +
+                    'I drew the foil on an HTML canvas, used Pointer Events so finger, pen and mouse share one code path, joined pointer samples into continuous strokes, and scaled the canvas to the device pixel ratio. ' +
+                    'The foil auto-completes once most of it is cleared, because nobody wants to scratch every last pixel.',
+            },
+            {
+                heading: 'Not everyone can scratch',
+                body: 'A scratch card is a barrier for keyboard and screen-reader users, and for anyone with limited hand movement. ' +
+                    'The date sits in the page behind the foil from the start, so screen readers can read it, and a "Reveal without scratching" button opens everything in one tap. ' +
+                    'Every GSAP animation runs through gsap.matchMedia(), so guests who prefer reduced motion skip straight to the finished state.',
+            },
+            {
+                heading: 'Shipping it for real',
+                body: 'Going live taught me as much as building it. I moved the domain\'s nameservers from name.com to Netlify DNS, worked through a certificate that wouldn\'t provision until DNS propagated, ' +
+                    'and turned off a hosting badge that sat on top of the music button. ' +
+                    'Within hours of going live, the request logs filled with bots scanning the new domain, so I added robots.txt and a noindex tag to keep a private invitation out of search results.',
             },
         ],
-        demo: 'https://the-time-tt.web.app',
+        demo: null, // TODO: link a demo copy with placeholder names, never the live invitation
         github: 'https://github.com/Chebem',
-        screenshots: [ ],
+        screenshots: [
+            { src: '/images/gallery/Screenshots/CTUnveiled/Teaser.png', caption: 'Teaser — the invitation before the reveal' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/Scratching.png', caption: 'Scratching away the gold foil' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/Revealed.png', caption: 'The date, revealed' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/Events.png', caption: 'Church service and reception, with map links' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/Schedule.png', caption: 'The day at a glance' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/RSVP.png', caption: 'RSVP form' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/CountdownFeature.png', caption: 'Save-the-date calendar with a live countdown' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/CustomizedFooter.png', caption: 'Monogram footer that brings guests back to RSVP' },
+        ],
     },
     {
         id: 'quiz-me',
