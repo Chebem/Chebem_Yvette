@@ -127,7 +127,7 @@ export const projects = [
         platform: 'Web (mobile-first)',
         year: '2026',
         stack: 'React, Vite, GSAP, ScrollTrigger, HTML Canvas, Pointer Events, Netlify Forms, Netlify DNS',
-        img: '/images/gallery/Screenshots/CTUnveiled/Revealed.png',
+        img: '/images/gallery/Screenshots/CTUnveiled/Teaser.png',
         color: '#8E1F5E',
         paper: null,
         venue: null,
