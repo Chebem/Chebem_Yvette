@@ -4,6 +4,8 @@ import Preloader from "../../components/Preloader/Preloader.jsx";
 import Header from "../../components/Header/Header.jsx";
 import HeroStory from "../../components/HeroStory/HeroStory.jsx";
 import Projects from "../../components/sections/Projects/Projects.jsx";
+import Contact from "../../components/sections/Contact/Contact.jsx";
+import Footer from "../../components/sections/Footer/Footer.jsx";
 
 import './Home.css';
 
@@ -25,6 +27,8 @@ function Home() {
             <Header />
             <HeroStory />
             <Projects />
+            <Contact />
+            <Footer />
         </>
     );
 }
