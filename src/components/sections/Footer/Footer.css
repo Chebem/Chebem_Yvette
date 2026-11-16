@@ -1,0 +1,45 @@
+.footer {
+    padding: 0 8% 2.5rem;
+}
+
+.footer-line {
+    height: 1px;
+    background: var(--line);
+    margin-bottom: 1.75rem;
+}
+
+.footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.footer-row span,
+.footer-top {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.footer-right {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+}
+
+.footer-top {
+    font-family: var(--font-body), sans-serif;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.footer-top:hover { color: var(--accent-text); }
+
+@media (max-width: 768px) {
+    .footer { padding: 0 6% 6rem; }   /* extra bottom room so the music toggle doesn't cover it */
+    .footer-row { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+    .footer-mid { display: none; }
+}

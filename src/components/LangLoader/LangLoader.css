@@ -1,0 +1,38 @@
+.lang-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;            /* above the navbar and the intro preloader */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    clip-path: circle(0% at 90% 4%);
+}
+
+/* same grain as the rest of the site */
+.lang-loader::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.3;
+    background-image: url('/images/noise.png');
+    background-size: 256px 256px;
+}
+
+/* overflow:hidden is what makes the letters "rise" out of nothing */
+.ll-mask {
+    display: block;
+    overflow: hidden;
+    padding: 0.1em 0.05em;
+}
+
+.ll-word {
+    display: block;
+    font-size: clamp(3rem, 11vw, 9rem);
+    color: var(--text-main);
+    white-space: nowrap;
+}
+
+.ll-char { display: inline-block; }
+.ll-dot { color: var(--accent-text); }

@@ -1,37 +1,60 @@
 import { useEffect, useRef, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { gsap, useGSAP } from '../../lib/gsap';
 import Header from '../../components/Header/Header.jsx';
-import { projects } from '../../data/projects.js';
+import { useLanguage, useProjects } from '../../context/language';
 import HoverButton from '../../components/HoverButton/HoverButton.jsx';
 import './ProjectDetail.css';
 
-gsap.registerPlugin(ScrollTrigger);
+// "1" → "01", for the 01 / 04 counter and chapter numbers
+const pad = (n) => String(n).padStart(2, '0');
+
+// The three chapters, in page order. The sticky bar links to these ids.
+const CHAPTERS = [
+    { id: 'overview', labelKey: 'pd.chOverview' },
+    { id: 'story',    labelKey: 'pd.chStory' },
+    { id: 'screens',  labelKey: 'pd.chScreens' },
+];
 
 export default function ProjectDetail() {
     const { id } = useParams();
     const navigate = useNavigate();
-    const pageRef   = useRef(null);
-    const heroImgRef = useRef(null);
-    const stripRef  = useRef(null);
+    const { t } = useLanguage();
+    const projects = useProjects();   // current language
+    const pageRef = useRef(null);
+    const stripRef = useRef(null);
     const [atStart, setAtStart] = useState(true);
     const [atEnd, setAtEnd] = useState(false);
+    const [lightbox, setLightbox] = useState(null);
 
-    const project = projects.find((p) => p.id === id);
+    const index = projects.findIndex((p) => p.id === id);
+    const project = projects[index];
+    // Last project wraps round to the first
+    const next = index >= 0 ? projects[(index + 1) % projects.length] : null;
 
     // Screenshots accept either '/path.png' or { src, caption }
     const shots = (project?.screenshots ?? []).map((s) =>
         typeof s === 'string' ? { src: s, caption: '' } : s
     );
-    const [lightbox, setLightbox] = useState(null);
+    // Only show chapter links for sections this project actually has
+    const chapters = CHAPTERS.filter((c) =>
+        c.id === 'screens' ? shots.length > 0 : c.id === 'story' ? project?.story?.length : true
+    );
+    // The "Visit" link in the sticky bar: live site first, then paper, then code
+    const visit = project?.demo
+        ? { href: project.demo, label: t('pd.visitLive') }
+        : project?.paper
+            ? { href: project.paper, label: t('pd.readPaper') }
+            : project?.github
+                ? { href: project.github, label: t('pd.viewCode') }
+                : null;
 
-    // Arriving from a project card halfway down the list would otherwise
-    // land halfway down this page
+    // Arriving from a card (or the "next project" block) should start at the top
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [id]);
 
+    // Lightbox keyboard controls
     useEffect(() => {
         if (lightbox === null) return;
 
@@ -49,125 +72,49 @@ export default function ProjectDetail() {
         };
     }, [lightbox, shots.length]);
 
-    useEffect(() => {
+    // Animations. Re-run when the project changes (next-project link reuses this page).
+    useGSAP(() => {
         if (!project) return;
+        const mm = gsap.matchMedia();
 
-        const ctx = gsap.context(() => {
+        mm.add('(prefers-reduced-motion: no-preference)', () => {
+            // Hero: lines rise in one after another
+            gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.8 } })
+                .from('.pd-eyebrow',  { autoAlpha: 0, y: 12 })
+                .from('.pd-title',    { autoAlpha: 0, yPercent: 40 }, '-=0.55')
+                .from('.pd-intro',    { autoAlpha: 0, y: 20 }, '-=0.5')
+                .from('.pd-meta > *', { autoAlpha: 0, y: 16, stagger: 0.08 }, '-=0.5');
 
-            // Hero title — letter reveal on load
-            gsap.fromTo('.pd-title',
-                { yPercent: 100, autoAlpha: 0 },
-                { yPercent: 0, autoAlpha: 1, duration: 1, ease: 'power4.out', delay: 0.2 }
-            );
-            gsap.fromTo('.pd-desc',
-                { autoAlpha: 0, y: 20 },
-                { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.5 }
-            );
-
-            // Hero image — parallax scroll
-            gsap.to(heroImgRef.current, {
-                yPercent: 15,
+            // Cover image drifts slower than the page (parallax)
+            gsap.fromTo('.pd-cover img', { yPercent: -4 }, {
+                yPercent: 4,
                 ease: 'none',
-                scrollTrigger: {
-                    trigger: '.pd-hero-img-wrap',
-                    start: 'top top',
-                    end: 'bottom top',
-                    scrub: true,
-                },
+                scrollTrigger: { trigger: '.pd-cover', start: 'top bottom', end: 'bottom top', scrub: true },
             });
 
-            // Meta row — stagger in
-            gsap.fromTo('.pd-meta-item',
-                { autoAlpha: 0, y: 24 },
-                {
-                    autoAlpha: 1, y: 0, duration: 0.6, ease: 'power2.out',
-                    stagger: 0.1,
-                    scrollTrigger: {
-                        trigger: '.pd-meta-row',
-                        start: 'top 85%',
-                        toggleActions: 'play none none reverse',
-                    },
-                }
-            );
-
-            // Features — each line draws in
-            gsap.utils.toArray('.pd-feature-item').forEach((item, i) => {
-                gsap.fromTo(item,
-                    { autoAlpha: 0, x: -20 },
-                    {
-                        autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out',
-                        delay: i * 0.06,
-                        scrollTrigger: {
-                            trigger: item,
-                            start: 'top 88%',
-                            toggleActions: 'play none none reverse',
-                        },
-                    }
-                );
+            // Each chapter's content fades up once as it arrives
+            gsap.utils.toArray('.pd-reveal').forEach((el) => {
+                gsap.from(el, {
+                    autoAlpha: 0, y: 30, duration: 0.7, ease: 'power2.out',
+                    scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+                });
             });
-
-            // Tags — pop in
-            gsap.fromTo('.pd-tag',
-                { autoAlpha: 0, scale: 0.8 },
-                {
-                    autoAlpha: 1, scale: 1, duration: 0.4, ease: 'back.out(1.5)',
-                    stagger: 0.05,
-                    scrollTrigger: {
-                        trigger: '.pd-tags',
-                        start: 'top 88%',
-                        toggleActions: 'play none none reverse',
-                    },
-                }
-            );
-
-            // Story rows — slide in from right
-            gsap.utils.toArray('.pd-story-section').forEach((row) => {
-                gsap.fromTo(row,
-                    { autoAlpha: 0, x: 40 },
-                    {
-                        autoAlpha: 1, x: 0, duration: 0.7, ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: row,
-                            start: 'top 85%',
-                            toggleActions: 'play none none reverse',
-                        },
-                    }
-                );
-            });
-
-            // Screenshots — scale up from small
-            gsap.utils.toArray('.pd-screenshot').forEach((img) => {
-                gsap.fromTo(img,
-                    { autoAlpha: 0, scale: 0.95, y: 40 },
-                    {
-                        autoAlpha: 1, scale: 1, y: 0, duration: 0.8, ease: 'power2.out',
-                        scrollTrigger: {
-                            trigger: img,
-                            start: 'top 88%',
-                            toggleActions: 'play none none reverse',
-                        },
-                    }
-                );
-            });
-
-        }, pageRef);
-
-        return () => ctx.revert();
-    }, [project]);
+        });
+    }, { scope: pageRef, dependencies: [id], revertOnUpdate: true });
 
     if (!project) {
         return (
             <div className="not-found">
-                <h2>Project not found</h2>
-                <button className="btn" onClick={() => navigate('/')}>← Back</button>
+                <h2>{t('pd.notFound')}</h2>
+                <button className="btn" onClick={() => navigate('/')}>{t('pd.allWork')}</button>
             </div>
         );
     }
 
     const tags = project.stack.split(', ');
 
-    // Phone captures are portrait, web captures landscape — tag each so the
-    // grid can size them differently instead of stretching everything alike
+    // Phone captures are portrait, web captures landscape: tag each so the
+    // strip can size them differently instead of stretching everything alike
     const handleShotLoad = (e) => {
         const img = e.currentTarget;
         const figure = img.closest('.pd-shot');
@@ -194,187 +141,203 @@ export default function ProjectDetail() {
         setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 2);
     };
 
+    // Chapter number shown in each section label, e.g. "02 / The story"
+    const num = (chapterId) => pad(chapters.findIndex((c) => c.id === chapterId) + 1);
+
     return (
         <>
             <Header />
             <div className="pd-page" ref={pageRef} style={{ '--project-color': project.color }}>
 
-                {/* Hero */}
+                {/* ── Hero ── */}
                 <section className="pd-hero">
-
-                    <button className="pd-back" onClick={() => navigate('/')}>
-                        ← Back
-                    </button>
-
-                    <div className="pd-title-clip">
-                        <h1 className="pd-title">{project.title}</h1>
+                    <div className="pd-topline">
+                        <button className="pd-back" onClick={() => navigate('/')}>{t('pd.allWork')}</button>
+                        <span className="pd-count">{pad(index + 1)} / {pad(projects.length)}</span>
                     </div>
 
-                    <p className="pd-desc">{project.desc}</p>
+                    <p className="pd-eyebrow">{project.type}</p>
+
+                    <h1 className="display pd-title">
+                        {project.title}
+                        <span className="pd-spark" aria-hidden="true">✦</span>
+                    </h1>
+
+                    <div className="pd-intro">
+                        <p>{project.desc}</p>
+                        <a href="#overview" className="pd-down" aria-label={t('pd.jumpAria')}>↓</a>
+                    </div>
+
+                    <dl className="pd-meta">
+                        <div><dt>{t('pd.role')}</dt><dd>{project.role}</dd></div>
+                        <div><dt>{t('pd.platform')}</dt><dd>{project.platform}</dd></div>
+                        <div><dt>{t('pd.builtWith')}</dt><dd>{tags.slice(0, 4).join(' · ')}</dd></div>
+                        <div><dt>{t('pd.year')}</dt><dd>{project.year}{project.venue ? ` · ${project.venue.split(' · ')[0]}` : ''}</dd></div>
+                    </dl>
                 </section>
 
-                {/* Meta Row */}
-                <section className="pd-meta-row">
-                    {project.role && (
-                        <div className="pd-meta-item">
-                            <span className="pd-meta-label">[role]</span>
-                            <span className="pd-meta-value">{project.role}</span>
-                        </div>
-                    )}
-                    {project.year && (
-                        <div className="pd-meta-item">
-                            <span className="pd-meta-label">[year]</span>
-                            <span className="pd-meta-value">{project.year}</span>
-                        </div>
-                    )}
-                    {project.type && (
-                        <div className="pd-meta-item">
-                            <span className="pd-meta-label">[type]</span>
-                            <span className="pd-meta-value">{project.type}</span>
-                        </div>
-                    )}
-                    {project.platform && (
-                        <div className="pd-meta-item">
-                            <span className="pd-meta-label">[platform]</span>
-                            <span className="pd-meta-value">{project.platform}</span>
-                        </div>
-                    )}
-                </section>
+                {/* ── Cover image ── */}
+                <figure className="pd-cover">
+                    <img src={project.img} alt={project.title} style={project.imgFit ? { objectFit: project.imgFit } : undefined} />
+                </figure>
 
+                {/* ── Sticky chapter bar ── */}
+                <nav className="pd-chapter-nav" aria-label={t('pd.sectionsAria')}>
+                    {chapters.map((c, i) => (
+                        <a key={c.id} href={`#${c.id}`}>{pad(i + 1)} / {t(c.labelKey)}</a>
+                    ))}
+                    {visit && (
+                        <a className="pd-visit" href={visit.href} target="_blank" rel="noopener noreferrer">
+                            {visit.label} ↗
+                        </a>
+                    )}
+                </nav>
 
-                {/* Hero Image */}
-                <div className="pd-hero-img-wrap">
-                    <img
-                        ref={heroImgRef}
-                        src={project.img}
-                        alt={project.title}
-                        className="pd-hero-img"
-                        style={{ objectFit: project.imgFit || 'cover' }}
-                    />
-                </div>
+                {/* ── 01 Overview ── */}
+                <section className="pd-chapter" id="overview">
+                    <div className="pd-chapter-title">
+                        <span>{num('overview')} / {t('pd.overviewLabel')}</span>
+                        <h2 className="display">{t('pd.overviewTitle')} <em>{t('pd.overviewAccent')}</em></h2>
+                    </div>
 
-                {/* Column Body*/}
-                <section className="pd-body">
-
-                    {/* Left */}
-                    <div className="pd-left">
+                    <div className="pd-chapter-body">
                         {project.features && (
-                            <div className="pd-block">
-                                <span className="pd-block-label">KEY FEATURES</span>
-                                <ul className="pd-features">
-                                    {project.features.map((f, i) => (
-                                        <li key={i} className="pd-feature-item">
-                                            <span className="pd-plus">+</span>{f}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            <ol className="pd-features pd-reveal">
+                                {project.features.map((f, i) => (
+                                    <li key={f}>
+                                        <span className="pd-feature-num">{pad(i + 1)}</span>
+                                        <span>{f}</span>
+                                    </li>
+                                ))}
+                            </ol>
                         )}
 
-                        <div className="pd-block">
-                            <span className="pd-block-label">TECHNOLOGIES</span>
+                        <div className="pd-block pd-reveal">
+                            <span className="pd-label">{t('pd.technologies')}</span>
                             <div className="pd-tags">
-                                {tags.map((tag) => (
-                                    <span key={tag} className="pd-tag">{tag}</span>
-                                ))}
+                                {tags.map((tag) => <span key={tag} className="pd-tag">{tag}</span>)}
                             </div>
                         </div>
 
                         {project.paper && (
-                            <div className="pd-block">
-                                <span className="pd-block-label">PUBLICATION</span>
+                            <div className="pd-block pd-reveal">
+                                <span className="pd-label">{t('pd.publication')}</span>
                                 <p className="pd-pub">{project.venue}</p>
                             </div>
                         )}
 
-                        <div className="pd-links">
+                        <div className="pd-links pd-reveal">
                             {project.demo && (
-                                <HoverButton label="Visit Live Site" onClick={() => window.open(project.demo, '_blank')} />
+                                <HoverButton label={t('pd.btnLive')} onClick={() => window.open(project.demo, '_blank')} />
                             )}
                             {project.github && (
-                                <HoverButton label="GitHub" onClick={() => window.open(project.github, '_blank')} />
+                                <HoverButton label={t('pd.btnGithub')} onClick={() => window.open(project.github, '_blank')} />
                             )}
                             {project.paper && (
-                                <HoverButton label="Read Paper" onClick={() => window.open(project.paper, '_blank')} />
+                                <HoverButton label={t('pd.btnPaper')} onClick={() => window.open(project.paper, '_blank')} />
                             )}
                         </div>
-                    </div>
-
-                    {/* Right */}
-                    <div className="pd-right">
-                        {project.story && project.story.map((section, i) => (
-                            <div className="pd-story-section" key={i}>
-                                <h2 className="pd-story-heading">{section.heading}</h2>
-                                <p className="pd-story-text">{section.body}</p>
-                            </div>
-                        ))}
                     </div>
                 </section>
 
-                {/* Screenshots ── */}
-                {shots.length > 0 && (
-                    <section className="pd-screenshots">
-                        <span className="pd-block-label">SCREENSHOTS</span>
-                        <div className="pd-strip-wrap">
-                        <button
-                            type="button"
-                            className="pd-strip-nav prev"
-                            onClick={() => scrollStrip(-1)}
-                            disabled={atStart}
-                            aria-label="Scroll screenshots left"
-                        >
-                            ‹
-                        </button>
-                        <div className="pd-screenshots-grid" ref={stripRef} onScroll={handleStripScroll}>
-                            {shots.map((shot, i) => (
-                                <figure className="pd-shot" key={`${shot.src}-${i}`}>
-                                    <button
-                                        type="button"
-                                        className="pd-shot-btn"
-                                        onClick={() => setLightbox(i)}
-                                        aria-label={`Enlarge screenshot ${i + 1} of ${shots.length}`}
-                                    >
-                                        <img
-                                            src={shot.src}
-                                            alt={shot.caption || `${project.title} screenshot ${i + 1}`}
-                                            className="pd-screenshot"
-                                            loading="lazy"
-                                            decoding="async"
-                                            onLoad={handleShotLoad}
-                                        />
-                                    </button>
-                                    {shot.caption && <figcaption>{shot.caption}</figcaption>}
-                                </figure>
-                            ))}
+                {/* ── 02 Story ── */}
+                {project.story?.length > 0 && (
+                    <section className="pd-chapter" id="story">
+                        <div className="pd-chapter-title">
+                            <span>{num('story')} / {t('pd.storyLabel')}</span>
+                            <h2 className="display">{t('pd.storyTitle')} <em>{t('pd.storyAccent')}</em></h2>
                         </div>
-                        <button
-                            type="button"
-                            className="pd-strip-nav next"
-                            onClick={() => scrollStrip(1)}
-                            disabled={atEnd}
-                            aria-label="Scroll screenshots right"
-                        >
-                            ›
-                        </button>
+
+                        <div className="pd-chapter-body">
+                            {project.story.map((section) => (
+                                <article className="pd-story pd-reveal" key={section.heading}>
+                                    <h3 className="display">{section.heading}</h3>
+                                    <p>{section.body}</p>
+                                </article>
+                            ))}
                         </div>
                     </section>
                 )}
 
+                {/* ── 03 Screens ── */}
+                {shots.length > 0 && (
+                    <section className="pd-screenshots" id="screens">
+                        <div className="pd-section-title">
+                            <span>{num('screens')} / {t('pd.screensLabel')}</span>
+                            <h2 className="display">{t('pd.screensTitle')} <em>{t('pd.screensAccent')}</em></h2>
+                        </div>
+
+                        <div className="pd-strip-wrap">
+                            <button
+                                type="button"
+                                className="pd-strip-nav prev"
+                                onClick={() => scrollStrip(-1)}
+                                disabled={atStart}
+                                aria-label={t('pd.scrollLeft')}
+                            >
+                                ‹
+                            </button>
+                            <div className="pd-screenshots-grid" ref={stripRef} onScroll={handleStripScroll}>
+                                {shots.map((shot, i) => (
+                                    <figure className="pd-shot" key={`${shot.src}-${i}`}>
+                                        <button
+                                            type="button"
+                                            className="pd-shot-btn"
+                                            onClick={() => setLightbox(i)}
+                                            aria-label={t('pd.enlarge', { n: i + 1, total: shots.length })}
+                                        >
+                                            <img
+                                                src={shot.src}
+                                                alt={shot.caption || t('pd.screenshotAlt', { title: project.title, n: i + 1 })}
+                                                className="pd-screenshot"
+                                                loading="lazy"
+                                                decoding="async"
+                                                onLoad={handleShotLoad}
+                                            />
+                                        </button>
+                                        {shot.caption && <figcaption>{shot.caption}</figcaption>}
+                                    </figure>
+                                ))}
+                            </div>
+                            <button
+                                type="button"
+                                className="pd-strip-nav next"
+                                onClick={() => scrollStrip(1)}
+                                disabled={atEnd}
+                                aria-label={t('pd.scrollRight')}
+                            >
+                                ›
+                            </button>
+                        </div>
+                    </section>
+                )}
+
+                {/* ── Next project ── */}
+                {next && next.id !== project.id && (
+                    <Link to={`/project/${next.id}`} className="pd-next">
+                        <div>
+                            <span className="pd-next-label">{t('pd.next')}</span>
+                            <h2 className="display">{next.title}</h2>
+                            <p>{next.type}</p>
+                        </div>
+                        <span className="pd-next-arrow" aria-hidden="true">→</span>
+                    </Link>
+                )}
             </div>
 
-            {/* Lightbox */}
+            {/* ── Lightbox ── */}
             {lightbox !== null && shots[lightbox] && (
                 <div
                     className="pd-lightbox"
                     role="dialog"
                     aria-modal="true"
-                    aria-label="Screenshot viewer"
+                    aria-label={t('pd.viewer')}
                     onClick={() => setLightbox(null)}
                 >
                     <button
                         className="pd-lightbox-close"
                         onClick={() => setLightbox(null)}
-                        aria-label="Close viewer"
+                        aria-label={t('pd.close')}
                     >
                         ✕
                     </button>
@@ -384,14 +347,14 @@ export default function ProjectDetail() {
                             <button
                                 className="pd-lightbox-nav prev"
                                 onClick={(e) => { e.stopPropagation(); step(-1); }}
-                                aria-label="Previous screenshot"
+                                aria-label={t('pd.prev')}
                             >
                                 ‹
                             </button>
                             <button
                                 className="pd-lightbox-nav next"
                                 onClick={(e) => { e.stopPropagation(); step(1); }}
-                                aria-label="Next screenshot"
+                                aria-label={t('pd.nextShot')}
                             >
                                 ›
                             </button>

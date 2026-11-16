@@ -5,6 +5,8 @@ import Home from './pages/Home/Home.jsx';
 import AboutPage from './pages/AboutPage.jsx';
 import ProjectDetail from './pages/ProjectDetails/ProjectDetail.jsx';
 import MusicToggle from "./components/MusicToggle/MusicToggle";
+import NotFound from './pages/NotFound/NotFound.jsx';
+import ScrollManager from './components/ScrollManager.jsx';
 
 
 
@@ -49,11 +51,14 @@ function App() {
 
   return (
       <>
+          <ScrollManager />
           <div className="line-left"></div>
           <Routes>
               <Route path="/" element={<Home />} />
               <Route path= "/about" element={<AboutPage />} />
               <Route path= "/project/:id" element={<ProjectDetail />} />
+              {/* Anything else: 404 page instead of a blank screen */}
+              <Route path="*" element={<NotFound />} />
           </Routes>
           <MusicToggle />
       </>

@@ -9,6 +9,7 @@ import {
     XmarkOutlined,
 } from "@lineiconshq/free-icons";
 import HoverButton from "../HoverButton/HoverButton";
+import { useLanguage } from '../../context/language';
 import './Header.css';
 
 
@@ -19,6 +20,7 @@ function Header() {
         const saved = localStorage.getItem('theme');
         return saved === 'dark';
     });
+    const { lang, toggleLang, t } = useLanguage();
     const navigate = useNavigate();
     const thumbRef = useRef(null);
 
@@ -68,18 +70,32 @@ function Header() {
 
             {/*Desktop Links*/}
             <div className={`links ${menuOpen ? ' active' : ''}`}>
-                <Link to="/" onClick={() => setMenuOpen(false)}>Home</Link>
-                <Link to="/about#about" onClick={() => setMenuOpen(false)}>About</Link>
-                <Link to="/#projects" onClick={() => setMenuOpen(false)}>Projects</Link>
+                <Link to="/" onClick={() => setMenuOpen(false)}>{t('nav.home')}</Link>
+                <Link to="/about#about" onClick={() => setMenuOpen(false)}>{t('nav.about')}</Link>
+                <Link to="/#projects" onClick={() => setMenuOpen(false)}>{t('nav.projects')}</Link>
                 <a href="https://m.applykorea.or.kr/news/view?cate=002&num=31695"
                    target="_blank" rel="noopener noreferrer"
-                   onClick={() => setMenuOpen(false)}>Blog</a>
+                   onClick={() => setMenuOpen(false)}>{t('nav.blog')}</a>
+                {/* Phones only: the Contact Me button is hidden there to make room, so it lives in the menu */}
+                <Link to="/#contact" className="links-contact" onClick={() => setMenuOpen(false)}>{t('nav.contact')}</Link>
             </div>
 
             <div className="navbar-right">
 
+                {/* Language button: shows the current language; tap EN → 한, tap 한 → EN.
+                    key={lang} remounts the label so its little flip animation replays */}
+                <button
+                    type="button"
+                    className="lang-toggle"
+                    onClick={toggleLang}
+                    aria-label={t('lang.aria')}
+                    title={t('lang.aria')}
+                >
+                    <span key={lang}>{lang === 'en' ? 'EN' : '한'}</span>
+                </button>
+
                 {/* Dark/Light toggle */}
-                <button className="theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
+                <button className="theme-toggle" onClick={toggleTheme} aria-label={t('nav.themeAria')}>
                     <span className="toggle-track">
                         <span className="toggle-thumb" ref={thumbRef}>
                             <Lineicons icon={darkMode ? Sun1Outlined : MoonHalfRight5Outlined} size={18} />
@@ -90,19 +106,14 @@ function Header() {
 
             {/*Contact button*/}
              <HoverButton
-                    label="Contact Me"
-                    onClick={() => {
-                        navigate('/');
-                        setTimeout(() => {
-                            document.getElementById('contact')?.scrollIntoView({behavior: 'smooth'});
-                        }, 100);
-                    }}
+                    label={t('nav.contact')}
+                    onClick={() => navigate('/#contact')}
                     className="hover-btn"
              />
 
             {/* Hamburger */}
             <button className="menu-toggle" onClick={() => setMenuOpen(prev => !prev)}
-                    aria-label="Toggle menu">
+                    aria-label={t('nav.menuAria')}>
                 <Lineicons icon={menuOpen ? XmarkOutlined : MenuHamburger1Outlined} size={22} />
             </button>
 

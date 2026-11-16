@@ -1,0 +1,83 @@
+.nf {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 10% 4rem;
+    overflow: hidden;
+}
+
+/* giant faded 404 behind the text, like the section numbers elsewhere */
+.nf-code {
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-display);
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+    font-size: clamp(9rem, 28vw, 24rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--text-main);
+    opacity: 0.05;
+    pointer-events: none;
+    user-select: none;
+}
+
+.nf-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+}
+
+.nf-title {
+    margin-top: 1.25rem;
+    font-size: clamp(2.6rem, 6.5vw, 5.5rem);
+    color: var(--text-main);
+}
+
+.nf-body {
+    max-width: 440px;
+    margin-top: 1.5rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 2.5rem;
+}
+
+.nf-btn {
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-main);
+    text-decoration: none;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+.nf-btn:hover {
+    border-color: var(--accent-text);
+    color: var(--accent-text);
+}
+.nf-btn--primary {
+    background: var(--text-main);
+    border-color: var(--text-main);
+    color: var(--bg);
+}
+.nf-btn--primary:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    color: #fff;
+}
+
+@media (max-width: 768px) {
+    .nf { padding: 7rem 6% 3rem; }
+    .nf-code { right: -4%; top: 30%; }
+}

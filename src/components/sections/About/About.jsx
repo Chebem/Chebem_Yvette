@@ -12,17 +12,19 @@ import {
 
 import './About.css';
 import {gsap} from "gsap";
+import { useLanguage } from '../../../context/language';
 
 // AboutPage Section
 function About () {
     const [flipped, setFlipped] = useState(false);
+    const { lang, t } = useLanguage();
     const facts = [
-        { icon: <Lineicons icon={Globe1Outlined} size={24} />, label: 'ORIGIN', value: '🇳🇬 Nigerian in South Korea 🇰🇷' },
-        { icon: <Lineicons icon={GraduationCap1Outlined} size={24} />, label: 'SCHOLARSHIP', value: 'GKS Scholar · TOPIK 5' },
-        { icon: <Lineicons icon={MapPin5Outlined} size={24} />, label: 'LOCATION', value: 'Chuncheon, Korea' },
-        { icon: <Lineicons icon={UserMultiple4Outlined} size={24} />, label: 'FUN FACT', value: 'I have a twin sister 🤭' },
-        { icon: <Lineicons icon={MusicOutlined} size={24} />, label: 'MUSIC', value: 'AfroGospel & Afrobeat' },
-        { icon: <Lineicons icon={HeartOutlined} size={24} />, label: 'HOBBY', value: 'K-dramas & Karaoke 🎤' },
+        { icon: <Lineicons icon={Globe1Outlined} size={24} />, label: t('about.origin'), value: t('about.originValue') },
+        { icon: <Lineicons icon={GraduationCap1Outlined} size={24} />, label: t('about.scholarship'), value: t('about.scholarshipValue') },
+        { icon: <Lineicons icon={MapPin5Outlined} size={24} />, label: t('about.location'), value: t('about.locationValue') },
+        { icon: <Lineicons icon={UserMultiple4Outlined} size={24} />, label: t('about.funFact'), value: t('about.funFactValue') },
+        { icon: <Lineicons icon={MusicOutlined} size={24} />, label: t('about.music'), value: t('about.musicValue') },
+        { icon: <Lineicons icon={HeartOutlined} size={24} />, label: t('about.hobby'), value: t('about.hobbyValue') },
     ];
     const cardWrapRef = useRef(null);
 
@@ -59,12 +61,22 @@ function About () {
             <section className="about-section" id="about">
                 {/* left- bio*/}
                 <div className="about-content">
-                    <h2 className="about-statement">
-                        I believe technology should
-                        <mark className="highlight-teal"> break barriers</mark>
-                        and <mark className="highlight-peach">connect people</mark>, while solving
-                        <mark className="highlight-lavender">problems that are overlooked</mark>
-                    </h2>
+                    {/* Highlights sit in different places in each language, so each gets its own sentence */}
+                    {lang === 'ko' ? (
+                        <h2 className="about-statement">
+                            저는 기술이
+                            <mark className="highlight-teal"> 장벽을 허물고</mark>{' '}
+                            <mark className="highlight-peach">사람을 연결하며</mark>,{' '}
+                            <mark className="highlight-lavender">외면받는 문제</mark>를 해결해야 한다고 믿습니다
+                        </h2>
+                    ) : (
+                        <h2 className="about-statement">
+                            I believe technology should
+                            <mark className="highlight-teal"> break barriers</mark>
+                            and <mark className="highlight-peach">connect people</mark>, while solving
+                            <mark className="highlight-lavender">problems that are overlooked</mark>
+                        </h2>
+                    )}
                 </div>
 
                 {/* right- 3D flip card*/}
@@ -85,7 +97,7 @@ function About () {
                                     <div className="about-phone-bottom">
                                         <div className="about-phone-name-row">
                                             <span className="about-name">Bembem</span>
-                                            <span className="about-pronouns">Tap to flip</span>
+                                            <span className="about-pronouns">{t('about.tapToFlip')}</span>
                                         </div>
                                         <button className="about-flip-btn" onClick={e => { e.stopPropagation(); setFlipped(true); }}>
                                             <Lineicons icon={RefreshCircle1ClockwiseOutlined} size={16} />
@@ -99,7 +111,7 @@ function About () {
                                 <div className="about-phone-card back">
                                     <div className="about-phone-notch"></div>
                                     <div className="about-phone-info">
-                                        <p className="about-back-label-title">A Little about me</p>
+                                        <p className="about-back-label-title">{t('about.backTitle')}</p>
                                         <div className="about-facts-grid">
                                             {facts.map((fact) =>(
                                                 <div className="about-fact-item" key={fact.label}>
