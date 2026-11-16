@@ -151,6 +151,45 @@
     transform: scale(1.05);
 }
 
+/* Language button: one round pill showing the current language */
+.lang-toggle {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text-main);
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s, color 0.2s;
+}
+.lang-toggle:hover {
+    border-color: var(--accent-text);
+    color: var(--accent-text);
+}
+.lang-toggle span {
+    font-family: var(--font-heading), sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    animation: lang-flip 0.35s cubic-bezier(.2,.8,.2,1);
+}
+/* the new label rolls up into place */
+@keyframes lang-flip {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lang-toggle span { animation: none; }
+}
+
+/* Contact link inside the menu: phones only (see media query) */
+.links-contact { display: none; }
+
 /* Mobile Menu Toggle */
 .menu-toggle {
     display: none;
@@ -163,8 +202,14 @@
 
 @media (max-width: 768px) {
     .navbar {
-       padding: 0.6%;
+       padding: 0 5%;
     }
+
+    .c-letter { white-space: nowrap; }   /* keep the name on one line */
+
+    /* Not enough room next to the two toggles; Contact moves into the menu instead */
+    .navbar-right .hover-btn { display: none; }
+    .links .links-contact { display: block; }
 
     .logo-container {
         margin-right: auto;

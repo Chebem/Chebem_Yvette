@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useLanguage } from '../../context/language';
 import './MusicToggle.css';
 
 // ── Put your song here ──
@@ -13,6 +14,7 @@ export default function MusicToggle() {
     const audioRef = useRef(null);
     const [playing, setPlaying] = useState(false);
     const [missing, setMissing] = useState(false);
+    const { t } = useLanguage();
 
     // Browsers block sound until the visitor clicks, so music only ever starts from this button
     const toggle = async () => {
@@ -39,14 +41,14 @@ export default function MusicToggle() {
                 className="music-btn"
                 onClick={toggle}
                 aria-pressed={playing}
-                aria-label={playing ? 'Turn background music off' : 'Turn background music on'}
+                aria-label={playing ? t('music.ariaOn') : t('music.ariaOff')}
                 title={SONG.credit}      /* credit shows on hover, keeping the pill small */
             >
                 <span className="music-bars" aria-hidden="true">
                     <span /><span /><span /><span /><span />
                 </span>
                 <span className="music-state">
-                    {missing ? 'No song yet' : `Sound ${playing ? 'on' : 'off'}`}
+                    {missing ? t('music.missing') : playing ? t('music.on') : t('music.off')}
                 </span>
             </button>
             <audio ref={audioRef} src={SONG.src} loop preload="none" />

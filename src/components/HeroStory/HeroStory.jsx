@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
 import { gsap, ScrollTrigger, Flip, useGSAP } from '../../lib/gsap';
 import JourneyMap from '../JourneyMap/Journeymap';
-import { heroChapters } from '../../data/heroChapters';
+import { heroChapters as heroChaptersEn } from '../../data/heroChapters';
+import { heroChaptersKo } from '../../i18n/ko';
+import { useLanguage, useLocalized } from '../../context/language';
 import './HeroStory.css';
 
 export default function HeroStory() {
@@ -11,6 +13,8 @@ export default function HeroStory() {
     const chapterRef = useRef(0);      // chapter as of the last scroll update (no re-render needed)
     const flipState = useRef(null);    // where things were before the layout swapped
     const [chapter, setChapter] = useState(0);
+    const { t } = useLanguage();
+    const heroChapters = useLocalized(heroChaptersEn, heroChaptersKo);
 
     // Slide 1: photo on the right. Slides 2–3 ("story mode"): globe on the left, text on the right.
     const isStory = chapter > 0;
@@ -34,7 +38,7 @@ export default function HeroStory() {
                 // pinned element's inline style when it pins/unpins.
                 progressRef.current?.style.setProperty('--progress', self.progress);
 
-                const next = Math.min(heroChapters.length - 1, Math.floor(self.progress * heroChapters.length));
+                const next = Math.min(heroChaptersEn.length - 1, Math.floor(self.progress * heroChaptersEn.length));
                 // About to switch between slide 1 and story mode? Record positions BEFORE React
                 // moves anything, so Flip can animate from here to the new layout.
                 if ((next > 0) !== (chapterRef.current > 0)) {
@@ -102,7 +106,7 @@ export default function HeroStory() {
                     {!isStory && (
                         <p className="hs-eyebrow">
                             <span className="hs-dot" aria-hidden="true" />
-                            Chebem Yvette <span aria-hidden="true">—</span> Software Developer
+                            Chebem Yvette <span aria-hidden="true">—</span> {t('hero.role')}
                         </p>
                     )}
 
@@ -125,7 +129,7 @@ export default function HeroStory() {
                         {!isStory && (
                             <a href="#projects" className="hs-explore">
                                 <span className="hs-explore-circle" aria-hidden="true">↓</span>
-                                <span>Explore<br />my work</span>
+                                <span>{t('hero.explore1')}<br />{t('hero.explore2')}</span>
                             </a>
                         )}
                     </div>
@@ -135,7 +139,7 @@ export default function HeroStory() {
                 <div className="hs-slot">
                     <div className={`hs-visual ${isStory ? 'show-map' : 'show-photo'}`} ref={visualRef}>
                         <div className="hs-layer hs-photo">
-                            <img src="/images/hero.jpg" alt="Chebem Yvette smiling outside a hanok in Korea" />
+                            <img src="/images/hero.jpg" alt={t('hero.photoAlt')} />
                         </div>
                         <div className="hs-layer hs-map" aria-hidden={!isStory}>
                             <JourneyMap chapter={mapStep} />
@@ -147,17 +151,17 @@ export default function HeroStory() {
             {/* The 01/02/03 indicator fades in once the story starts */}
             <div className={`hs-progress ${isStory ? 'is-story' : ''}`} ref={progressRef}>
                 {/* Left end: the music pill now lives bottom-right */}
-                <span className="hs-scroll-hint">Scroll to unfold ↓</span>
+                <span className="hs-scroll-hint">{t('hero.scrollHint')}</span>
                 <div className="hs-progress-center">
-                    <span className="hs-progress-label">A little of my story</span>
+                    <span className="hs-progress-label">{t('hero.storyLabel')}</span>
                     {/* Just the bars, no numbers; screen readers still hear "slide 2 of 3" */}
-                    <ol className="hs-steps" aria-label="Story progress">
+                    <ol className="hs-steps" aria-label={t('hero.progressAria')}>
                         {heroChapters.map((ch, i) => (
                             <li
-                                key={ch.title}
+                                key={i}
                                 className={i === chapter ? 'is-active' : ''}
                                 style={{ '--i': i }}
-                                aria-label={`Slide ${i + 1} of ${heroChapters.length}`}
+                                aria-label={t('hero.slideOf', { n: i + 1, total: heroChapters.length })}
                                 aria-current={i === chapter ? 'step' : undefined}
                             >
                                 <span className="hs-bar" />

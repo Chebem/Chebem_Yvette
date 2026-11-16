@@ -228,33 +228,56 @@
     color: var(--accent-dark);
 }
 
-/* ── Mobile ── */
+/* Card captions are for the mobile swipe row only */
+.project-mobile-info { display: none; }
+
+/* ── Mobile: one horizontal swipe row, each card with its own caption ── */
 
 @media (max-width: 768px) {
-    .projects-section {
-        padding: 4rem 6%;
-    }
+    .projects-section { padding: 4rem 6vw; }
 
-    .projects-body {
-        flex-direction: column;
-        gap: 2rem;
-    }
+    .projects-body { display: block; }
+    .project-info-sticky { display: none; }
 
     .project-img-list {
-        gap: 2rem;
-        order: 2;
+        flex-direction: row;
+        gap: 1rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-padding-inline: 6vw;
+        margin-inline: -6vw;            /* cards run to the screen edge */
+        padding: 0 6vw 1rem;
+        scrollbar-width: none;
     }
-
-    .project-info-sticky {
-        position: static;
-        order: 1;
-    }
+    .project-img-list::-webkit-scrollbar { display: none; }
 
     .project-img-wrap {
+        flex: 0 0 82%;                  /* the next card peeks in, hinting you can swipe */
+        scroll-snap-align: start;
+        aspect-ratio: auto;
+        overflow: visible;
+        box-shadow: none;
         cursor: pointer;
     }
+    .project-img-wrap img {
+        aspect-ratio: 16 / 10;
+        height: auto;
+        border-radius: 16px;
+    }
+    .project-img-wrap:hover { box-shadow: none; }
+    .project-img-wrap:hover img { filter: none; transform: none; }
+    .project-overlay,
+    .cursor-follower { display: none; }
 
-    .cursor-follower {
-        display: none;
+    .project-mobile-info { display: block; padding-top: 14px; }
+    .project-mobile-info h3 {
+        font-size: 1.2rem;
+        color: var(--text-main);
+        margin: 4px 0 6px;
+    }
+    .project-mobile-info p {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        line-height: 1.55;
     }
 }

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { projects } from '../../../data/projects';
+import { useLanguage, useProjects } from '../../../context/language';
 import './Projects.css';
 import { Lineicons } from "@lineiconshq/react-lineicons";
 import { Link2AngularRightOutlined, GithubOutlined } from '@lineiconshq/free-icons';
@@ -10,6 +11,7 @@ import { Link2AngularRightOutlined, GithubOutlined } from '@lineiconshq/free-ico
 gsap.registerPlugin(ScrollTrigger);
 
 function ProjectImage({ p, onClick }) {
+    const { t } = useLanguage();
     const cardRef = useRef(null);
     const followerRef = useRef(null);
     const [visible, setVisible] = useState(false);
@@ -40,7 +42,7 @@ function ProjectImage({ p, onClick }) {
             onClick={onClick}
         >
             <div className="cursor-follower" ref={followerRef} style={{ opacity: visible ? 1 : 0 }}>
-                View
+                {t('projects.view')}
             </div>
             <img src={p.img} alt={p.title} loading="lazy" decoding="async" style={{ objectFit: p.imgFit || 'cover' }} />
             <div className="project-overlay">
@@ -50,12 +52,20 @@ function ProjectImage({ p, onClick }) {
                     ))}
                 </div>
             </div>
+            {/* Mobile only: each card carries its own caption, since the sticky panel is hidden there */}
+            <div className="project-mobile-info">
+                <span className="project-year">{p.year}</span>
+                <h3>{p.title}</h3>
+                <p>{p.short}</p>
+            </div>
         </div>
     );
 }
 
 function Projects() {
     const navigate = useNavigate();
+    const { t } = useLanguage();
+    const list = useProjects();   // same projects, in the current language
     const [active, setActive] = useState(0);
     const activeRef = useRef(0);
     const total = projects.length;
@@ -115,19 +125,19 @@ function Projects() {
         return () => triggers.forEach(t => t.kill());
     }, []);
 
-    const p = projects[active];
+    const p = list[active];
 
     return (
         <section className="projects-section" id="projects">
             <div className="section-heading">
-                <h2>Selected Projects</h2>
+                <h2>{t('projects.heading')}</h2>
                 <div className="section-line"></div>
             </div>
 
             <div className="projects-body">
                 {/* LEFT — images in normal scroll flow */}
                 <div className="project-img-list">
-                    {projects.map((proj) => (
+                    {list.map((proj) => (
                         <ProjectImage
                             key={proj.id}
                             p={proj}
@@ -153,7 +163,7 @@ function Projects() {
                                 {String(total).padStart(2, '0')}
                             </span>
                             <span className="project-year">{p.year || '2025'}</span>
-                            {p.paper && <span className="project-badge">Published</span>}
+                            {p.paper && <span className="project-badge">{t('projects.published')}</span>}
                         </div>
 
                         {/* Everything else fades as a block */}
@@ -162,7 +172,7 @@ function Projects() {
                             <p>{p.short}</p>
                             <div className="project-info-bottom">
                                 <span className="see-more-link" onClick={() => navigate(`/project/${p.id}`)}>
-                                    Learn More
+                                    {t('projects.learnMore')}
                                 </span>
                                 <div className="project-icon-links">
                                     {p.demo && (

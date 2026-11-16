@@ -1,6 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useRef } from 'react';
+import { gsap, useGSAP } from '../../../lib/gsap';
 import { Lineicons } from '@lineiconshq/react-lineicons';
 import {
     CertificateBadge1Outlined,
@@ -10,10 +9,10 @@ import {
     FilePencilOutlined,
     Code1Outlined,
 } from '@lineiconshq/free-icons';
-import { milestones } from '../../../data/milestones';
+import { milestones as milestonesEn } from '../../../data/milestones';
+import { milestonesKo } from '../../../i18n/ko';
+import { useLanguage, useLocalized } from '../../../context/language';
 import './Koreatimeline.css';
-
-gsap.registerPlugin(ScrollTrigger);
 
 const ICONS = [
     CertificateBadge1Outlined,
@@ -28,9 +27,17 @@ export default function KoreaTimeline() {
     const sectionRef = useRef(null);
     const rightRef = useRef(null);
     const cardsRef = useRef([]);
+    const { t } = useLanguage();
+    const milestones = useLocalized(milestonesEn, milestonesKo);
 
-    useEffect(() => {
-        const ctx = gsap.context(() => {
+    // useGSAP (not useEffect): its cleanup runs BEFORE React removes the section. The pin wraps
+    // the section in an extra div, and with useEffect that wrapper was still there when React
+    // removed the section, which crashed the page when navigating from About to Home.
+    useGSAP(() => {
+        // Desktop only. On phones the pinned area is taller than the screen and cut the cards off,
+        // so there they just stack in normal flow (see the mobile CSS). Resizing switches cleanly.
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 769px)', () => {
             const cards = cardsRef.current.filter(Boolean);
             const total = cards.length;
 
@@ -70,10 +77,8 @@ export default function KoreaTimeline() {
                 }, i - 1);
             });
 
-        }, sectionRef);
-
-        return () => ctx.revert();
-    }, []);
+        });
+    }, { scope: sectionRef });
 
     return (
         <section className="timeline-section" ref={sectionRef} id="timeline">
@@ -83,14 +88,11 @@ export default function KoreaTimeline() {
                 {/* LEFT — sticky */}
                 <div className="timeline-left">
                     <span className="timeline-label">// section.journey</span>
-                    <h2 className="timeline-title">4 Years<br />in Korea</h2>
-                    <p className="timeline-subtitle">
-                        From Lagos to Seoul a chapter of language,
-                        learning, and growth.
-                    </p>
+                    <h2 className="timeline-title">{t('timeline.title1')}<br />{t('timeline.title2')}</h2>
+                    <p className="timeline-subtitle">{t('timeline.subtitle')}</p>
                     <div className="timeline-counter">
                         <span className="timeline-counter-num">{milestones.length}</span>
-                        <span className="timeline-counter-text">milestones</span>
+                        <span className="timeline-counter-text">{t('timeline.milestones')}</span>
                     </div>
                 </div>
 

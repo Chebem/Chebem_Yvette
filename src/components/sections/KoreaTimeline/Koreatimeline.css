@@ -261,4 +261,25 @@
         flex: none;
         width: 100%;
     }
+
+    /* Cards stack in normal flow instead of the pinned slide-up */
+    .timeline-layout { padding: 0; }
+    .timeline-right {
+        height: auto;
+        overflow: visible;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+    .milestone-card {
+        position: relative;
+        max-width: none;
+        padding: 1.75rem 1.5rem 2rem;
+    }
+    .milestone-title { font-size: 1.3rem; }
+    .milestone-bullets li {
+        align-items: flex-start;
+        font-size: 0.92rem;
+        line-height: 1.6;
+    }
+    .milestone-bullets li::before { margin-top: 0.55em; }
 }

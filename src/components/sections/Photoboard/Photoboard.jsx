@@ -1,7 +1,9 @@
 import {useEffect, useMemo, useRef, useState} from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { photos } from '../../../data/photos'
+import { photos as photosEn } from '../../../data/photos';
+import { photosKo } from '../../../i18n/ko';
+import { useLanguage, useLocalized } from '../../../context/language';
 import './Photoboard.css';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -27,8 +29,10 @@ function generateLayout(count, cols = 4) {
 function PhotoBoard() {
     const boardRef = useRef(null);
     const cardRef = useRef([]);
+    const { t } = useLanguage();
+    const photos = useLocalized(photosEn, photosKo);
     const [tooltip, setTooltip] = useState({ caption: '', x: 0, y: 0, visible: false});
-    const layout = useMemo(() => generateLayout(photos.length), []);
+    const layout = useMemo(() => generateLayout(photosEn.length), []);
 
     useEffect(() => {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -109,7 +113,7 @@ function PhotoBoard() {
     return (
         <section className="photo-board-section">
             <div className="section-heading">
-                <h2>Beyond the Code</h2>
+                <h2>{t('photos.heading')}</h2>
                 <div className="section-line"></div>
             </div>
 
