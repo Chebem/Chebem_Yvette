@@ -117,12 +117,12 @@ function MyStory() {
                         <div className="story-buttons">
                             <HoverButton
                                 label={t('story.resumeEn')}
-                                onClick={() => window.open('/resume/Chukwuka_Chinechebem_Yvette_Resume_Eng.pdf', '_blank')}
+                                onClick={() => window.open('/resume/Chebem_Yvette_Resume_EN.pdf', '_blank')}
                                 className="hover-btn"
                             />
                             <HoverButton
                                 label={t('story.resumeKr')}
-                                onClick={() => window.open('/resume/추쿠카_치네체벰_이베트_이력서.pdf', '_blank')}
+                                onClick={() => window.open('/resume/Chebem_Yvette_Resume_KR.pdf', '_blank')}
                                 className="hover-btn"
                             />
                         </div>
