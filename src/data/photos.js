@@ -13,9 +13,8 @@ export const photos = [
     { src: '/images/gallery/photocard8.jpg',  caption: 'Best Team for KAF' },
     { src: '/images/gallery/photocard11.jpg', caption: 'Busan trip with the Girls' },
     { src: '/images/gallery/photocard12.jpg', caption: 'Nigerian Family in Korea' },
-    { src: '/images/gallery/photocard13.jpg', caption: '' },
-    { src: '/images/gallery/photocard14.jpg', caption: 'Nigeria' },
-    { src: '/images/gallery/photocard15.jpg', caption: 'Nigeria' },
-    { src: '/images/gallery/photocard16.jpg', caption: 'Nigeria' },
+    { src: '/images/gallery/photocard14.jpg', caption: 'North Korea Ministry Volunteer' },
+    { src: '/images/gallery/photocard15.jpg', caption: 'CCC First International Student Hangout' },
+    { src: '/images/gallery/photocard16.jpg', caption: 'CCC International Students Leaders' },
 ];
 

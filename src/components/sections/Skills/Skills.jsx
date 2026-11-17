@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { Lineicons } from '@lineiconshq/react-lineicons';
 import { gsap, useGSAP } from '../../../lib/gsap';
 import { skillGroups } from '../../../data/skills';
@@ -40,10 +40,11 @@ function Skills() {
                         </div>
                         <p className="skills-items">
                             {g.items.map((item, i) => (
-                                <span key={item}>
-                                    {g.translated ? t(item) : item}
+                                <Fragment key={item}>
+                                    {/* each tool stays whole; the line can still wrap at the dots */}
+                                    <span className="skills-item">{g.translated ? t(item) : item}</span>
                                     {i < g.items.length - 1 && <span className="skills-dot"> · </span>}
-                                </span>
+                                </Fragment>
                             ))}
                         </p>
                     </li>
