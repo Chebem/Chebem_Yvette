@@ -49,6 +49,17 @@ export const ui = {
         'story.resumeEn': 'Resume (EN)',
         'story.resumeKr': 'Resume (KR)',
 
+        // Toolkit (About page)
+        'skills.label': '// section.toolkit',
+        'skills.title': 'Toolkit',
+        'skills.code': 'Languages',
+        'skills.frontend': 'Frontend & Mobile',
+        'skills.backend': 'Backend, Data & Deploy',
+        'skills.ai': 'AI',
+        'skills.spoken': 'Languages I speak',
+        'skills.english': 'English (fluent)',
+        'skills.korean': 'Korean (Advanced)',
+
         // Korea timeline
         'timeline.title1': '4 Years',
         'timeline.title2': 'in Korea',
@@ -182,6 +193,16 @@ export const ui = {
         'story.title': '나의 이야기',
         'story.resumeEn': '이력서 (영문)',
         'story.resumeKr': '이력서 (국문)',
+
+        'skills.label': '// section.toolkit',
+        'skills.title': '기술 스택',
+        'skills.code': '프로그래밍 언어',
+        'skills.frontend': '프론트엔드 & 모바일',
+        'skills.backend': '백엔드, 데이터 & 배포',
+        'skills.ai': 'AI',
+        'skills.spoken': '구사 언어',
+        'skills.english': '영어 (유창)',
+        'skills.korean': '한국어 (고급)',
 
         'timeline.title1': '한국에서의',
         'timeline.title2': '4년',
