@@ -82,7 +82,7 @@ export default function KoreaTimeline() {
 
     return (
         <section className="timeline-section" ref={sectionRef} id="timeline">
-            <span className="timeline-bg-num">03</span>
+            <span className="timeline-bg-num">04</span>
 
             <div className="timeline-layout">
                 {/* LEFT — sticky */}

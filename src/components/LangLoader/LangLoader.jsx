@@ -11,7 +11,7 @@ export default function LangLoader({ target, onCovered, onDone }) {
     const root = useRef(null);
 
     useGSAP(() => {
-        // Grow from the language button if we can find it, otherwise from the top-right corner
+        // Grow from the language button
         const btn = document.querySelector('.lang-toggle')?.getBoundingClientRect();
         const x = btn ? ((btn.left + btn.width / 2) / window.innerWidth) * 100 : 90;
         const y = btn ? ((btn.top + btn.height / 2) / window.innerHeight) * 100 : 4;

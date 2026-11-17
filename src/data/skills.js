@@ -1,14 +1,38 @@
-export const skills = [
-    { icon: '/icons/html.png', name: 'HTML5' },
-    { icon: '/icons/css.png', name: 'CSS3' },
-    { icon: '/icons/javascript.png', name: 'JavaScript' },
-    { icon: '/icons/react.png', name: 'React' },
-    { icon: '/icons/java.png', name: 'Java' },
-    { icon: '/icons/python.png', name: 'Python' },
-    { icon: '/icons/android.png', name: 'Android' },
-    { icon: '/icons/Firebase.svg', name: 'Firebase' },
-    { icon: '/icons/sql.png', name: 'SQL' },
-    { icon: '/icons/github.png', name: 'GitHub' },
-    { icon: '/icons/spring-boot-icon.svg', name: 'Spring Boot' },
-    { icon: '/icons/c-.png', name: 'C++' },
+// Toolkit on the About page: one Lineicon per group, tools as plain text.
+// Group labels and the spoken-language items are translated in i18n/ui.js (skills.*).
+import {
+    Code1Outlined,
+    MonitorCodeOutlined,
+    Database2Outlined,
+    SparkOutlined,
+    ChatBubble2Outlined,
+} from '@lineiconshq/free-icons';
+
+export const skillGroups = [
+    {
+        id: 'code',
+        icon: Code1Outlined,
+        items: ['JavaScript', 'Python', 'Java', 'SQL', 'C++', 'HTML & CSS'],
+    },
+    {
+        id: 'frontend',
+        icon: MonitorCodeOutlined,
+        items: ['React', 'Vite', 'GSAP', 'Android', 'XML', 'MVVM'],
+    },
+    {
+        id: 'backend',
+        icon: Database2Outlined,
+        items: ['FastAPI', 'Spring Boot', 'Firebase', 'PostgreSQL', 'pgvector', 'Neo4j', 'Netlify', 'Git & GitHub'],
+    },
+    {
+        id: 'ai',
+        icon: SparkOutlined,
+        items: ['Gemini API', 'Pydantic-AI', 'RAG', 'Embeddings', 'Crawl4AI'],
+    },
+    {
+        id: 'spoken',
+        icon: ChatBubble2Outlined,
+        translated: true,   // items are ui.js keys, not tool names
+        items: ['skills.english', 'skills.korean'],
+    },
 ];
