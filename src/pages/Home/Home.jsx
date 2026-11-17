@@ -4,6 +4,7 @@ import Preloader from "../../components/Preloader/Preloader.jsx";
 import Header from "../../components/Header/Header.jsx";
 import HeroStory from "../../components/HeroStory/HeroStory.jsx";
 import Projects from "../../components/sections/Projects/Projects.jsx";
+import AboutTeaser from "../../components/sections/AboutTeaser/AboutTeaser.jsx";
 import Contact from "../../components/sections/Contact/Contact.jsx";
 import Footer from "../../components/sections/Footer/Footer.jsx";
 
@@ -27,6 +28,7 @@ function Home() {
             <Header />
             <HeroStory />
             <Projects />
+            <AboutTeaser />
             <Contact />
             <Footer />
         </>

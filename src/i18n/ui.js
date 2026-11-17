@@ -97,6 +97,19 @@ export const ui = {
         'pd.prev': 'Previous screenshot',
         'pd.nextShot': 'Next screenshot',
 
+        // Home: about teaser
+        'at.label': '02 / The person behind the code',
+        'at.line1': 'Nigerian roots.',
+        'at.line2': 'Korean chapters.',
+        'at.accent': 'A curious builder.',
+        'at.body1': "I'm Chebem, a software developer from Lagos who moved to Korea on the Global Korea Scholarship, learned the language, and earned a Computer Science degree in it.",
+        'at.body2': 'I build AI, Android and web apps for the problems people quietly struggle with, especially the gaps I lived through as an international student.',
+        'at.more': 'My story, journey & photos',
+        'at.note1': 'Lagos → Seoul,',
+        'at.note2': 'one line at a time.',
+        'at.caption': 'Curious by nature · Builder by choice',
+        'at.photoAlt': 'Chebem Yvette smiling in front of trees in Korea',
+
         // Contact
         'contact.label': 'Have an idea in mind?',
         'contact.labelRight': 'Open to roles & collaborations',
@@ -214,6 +227,18 @@ export const ui = {
         'pd.close': '닫기',
         'pd.prev': '이전 스크린샷',
         'pd.nextShot': '다음 스크린샷',
+
+        'at.label': '02 / 코드 뒤의 사람',
+        'at.line1': '나이지리아에서 시작해,',
+        'at.line2': '한국에서 이어온 이야기.',
+        'at.accent': '호기심 많은 개발자.',
+        'at.body1': '저는 라고스 출신의 소프트웨어 개발자 치네체벰입니다. 정부초청장학금(GKS)으로 한국에 와서 한국어를 배우고, 한국어로 컴퓨터공학 학위를 받았습니다.',
+        'at.body2': '사람들이 조용히 겪는 문제, 특히 유학생으로서 제가 직접 겪었던 빈틈을 위해 AI, 안드로이드, 웹 앱을 만듭니다.',
+        'at.more': '나의 이야기, 여정 & 사진',
+        'at.note1': '라고스 → 서울,',
+        'at.note2': '한 줄씩.',
+        'at.caption': '타고난 호기심 · 선택한 개발자의 길',
+        'at.photoAlt': '한국의 나무 앞에서 웃고 있는 치네체벰 이베트',
 
         'contact.label': '생각하고 있는 아이디어가 있나요?',
         'contact.labelRight': '채용 및 협업 문의 환영',
