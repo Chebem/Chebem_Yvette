@@ -97,7 +97,6 @@ export const photosKo = [
     { caption: '한·아프리카재단 최우수 팀' },
     { caption: '친구들과 부산 여행' },
     { caption: '한국의 나이지리아 가족' },
-    {},
     { caption: '나이지리아' },
     { caption: '나이지리아' },
     { caption: '나이지리아' },

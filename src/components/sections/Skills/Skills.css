@@ -78,11 +78,11 @@
 
 .skills-items {
     margin: 0;
-    font-size: clamp(1rem, 1.4vw, 1.15rem);
+    font-size: clamp(1rem, 1.5vw, 1.1rem);   /* same as My Story paragraphs */
     line-height: 1.7;
     color: var(--text-main);
 }
-.skills-items > span { white-space: nowrap; }   /* never split "HTML & CSS" across lines */
+.skills-item { white-space: nowrap; }   /* never split "HTML & CSS" across lines */
 .skills-dot {
     color: var(--text-muted);
     opacity: 0.6;
@@ -95,5 +95,4 @@
         gap: 0.6rem;
         padding: 1.25rem 0;
     }
-    .skills-items { font-size: 0.95rem; }
 }

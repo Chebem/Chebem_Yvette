@@ -98,16 +98,39 @@
     opacity: 1;
 }
 
+/* Mobile: the scattered layout is too tall and crowded on a narrow screen,
+   so the pinned photos sit in a compact 3-column grid instead (they keep their tilt) */
 @media (max-width: 768px) {
+    .photo-board-section { padding: 4rem 6%; }
+    .photo-board-frame { padding: 8px; border-radius: 20px; }
+
     .photo-board {
-        height: 1500px;
+        height: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px 10px;
+        padding: 22px 12px 18px;
+        border-radius: 14px;
     }
 
     .photo-card {
-        width: 130px;
+        position: relative;
+        top: auto !important;    /* override the desktop scatter positions */
+        left: auto !important;
+        width: auto;
+        padding: 4px;
     }
+    .photo-card::before { width: 10px; height: 10px; top: -5px; }
+    /* drop a lone photo on the last row so the grid ends evenly */
+    .photo-card:last-child:nth-child(3n + 1) { display: none; }
 
     .photo-card img {
-        height: 95px;
+        height: auto;
+        aspect-ratio: 1;
+        border-radius: 3px;
     }
+
+    /* no hover-grow on touch screens */
+    .photo-card:hover { width: auto; transform: none; }
+    .photo-card img:hover { width: 100%; object-fit: cover; transform: none; box-shadow: none; }
 }
