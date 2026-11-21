@@ -4,7 +4,7 @@ import { CheckOutlined } from '@lineiconshq/free-icons';
 import { useLanguage } from '../../../context/language';
 import './Contact.css';
 
-const EMAIL = 'me@chebemyvette.com';   // ← put your contact email here
+const EMAIL = 'me@chebemyvette.com';
 
 // Lineicons has no plain copy icon, so this one is drawn to match its thin outline style
 const CopyIcon = () => (
