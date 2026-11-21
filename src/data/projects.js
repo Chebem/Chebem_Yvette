@@ -41,19 +41,26 @@ export const projects = [
                 heading: 'The mental shift',
                 body: "As an international student studying in a regional area of South Korea, " +
                     "I experienced firsthand how difficult navigation, local integration, " +
-                    "and working against time to access basic information could be — especially outside major cities. Kakao Map and Naver Map are the go-to navigation apps here, but they don't always feel equally accessible or comfortable for new foreign students and first-time visitors. I didn't want to build another navigation app. I wanted to build something that bridged the struggles I had actually faced.",
+                    "and working against time to access basic information could be, especially outside major cities. " +
+                    "Kakao Map and Naver Map are the go-to navigation apps here, but they don't always feel equally accessible or comfortable for new foreign students and first-time visitors. " +
+                    "I didn't want to build another navigation app. I wanted to build something that bridged the struggles I had actually faced.",
             },
             {
                 heading: 'Why SMU Navigator exists',
-                body: "SMU Navigator was never meant to replace existing navigation platforms — rebuilding full-scale navigation systems takes entire teams, years of work, and deep platform-level integration. The goal was simpler, and more human: campus navigation for Semyung University, city guides for nearby places in Jecheon, direct links to existing navigation apps for real-time directions, and community features to help students feel less lost. It's a tool that helps students feel oriented, not overwhelmed — especially international students, new students, and anyone living in a regional area with limited English-friendly infrastructure.",
+                body: "SMU Navigator was never meant to replace existing navigation platforms: rebuilding full-scale navigation systems takes entire teams, years of work, and deep platform-level integration. " +
+                    "The goal was simpler, and more human: campus navigation for Semyung University, city guides for nearby places in Jecheon, direct links to existing navigation apps for real-time directions, and community features to help students feel less lost. " +
+                    "It's a tool that helps students feel oriented, not overwhelmed, especially international students, new students, and anyone living in a regional area with limited English-friendly infrastructure.",
             },
             {
                 heading: 'Building it bilingual from day one',
-                body: 'Most "internationalized" apps add translation as an afterthought. We built the language layer into the architecture first. Campus notices are auto-scraped from the official Semyung website using a Python script, translated via Google Cloud Translate API, and synced to Firebase in real time. The Kakao Map API renders custom markers for every building and student-friendly spot in Jecheon.',
+                body: 'Most "internationalized" apps add translation as an afterthought. We built the language layer into the architecture first. ' +
+                    'Campus notices are auto-scraped from the official Semyung website using a Python script, translated via Google Cloud Translate API, and synced to Firebase in real time. ' +
+                    'The Kakao Map API renders custom markers for every building and student-friendly spot in Jecheon.',
             },
             {
                 heading: 'What the data showed',
-                body: '90% of user testers reported improved orientation through dual-language content. 90% said they would use a campus + city app, and we collected that data before writing a single line of code, through surveys. The research-first approach meant we were solving a validated problem, not guessing. The paper was published in Springer CCIS as part of MITA 2025.',
+                body: '90% of user testers reported improved orientation through dual-language content. 90% said they would use a campus + city app, and we collected that data before writing a single line of code, through surveys. ' +
+                    'The research-first approach meant we were solving a validated problem, not guessing. The paper was published in Springer CCIS as part of MITA 2025.',
             },
         ],
         demo: null,
@@ -79,7 +86,7 @@ export const projects = [
         id: 'harubuddy',
         title: 'HaruBuddy',
         short: 'Multi-agentic RAG system for foreigners in Korea. Published at IEIE 2025 (DBpia).',
-        desc: 'An AI-powered digital scaffolding platform that helps foreign residents and tourists in Korea access reliable, real-time information across visa, employment, and daily life — bridging the language and information gap through Hybrid RAG and Knowledge Graph reasoning.',
+        desc: 'An AI-powered digital scaffolding platform that helps foreign residents and tourists in Korea access reliable, real-time information across visa, employment, and daily life, bridging the language and information gap through Hybrid RAG and Knowledge Graph reasoning.',
         type: 'AI Research · Full Stack',
         role: 'Lead Researcher · Backend Developer',
         platform: 'Web · API',
@@ -102,15 +109,18 @@ export const projects = [
         story: [
             {
                 heading: 'The problem nobody was solving',
-                body: 'Foreign residents in Korea face a fragmented information landscape. Government resources are in Korean, scattered across dozens of different sites, and the translations that do exist are unreliable. People get stuck on basic questions about visas, employment, and daily life. No single system could answer cross-lingual queries with structured accuracy.',
+                body: 'Foreign residents in Korea face a fragmented information landscape. Government resources are in Korean, scattered across dozens of different sites, and the translations that do exist are unreliable. ' +
+                    'People get stuck on basic questions about visas, employment, and daily life. No single system could answer cross-lingual queries with structured accuracy.',
             },
             {
                 heading: 'Why RAG alone was not enough',
-                body: 'A simple vector search could not handle the complexity of Korean government information — documents reference each other, policies have conditions, and context matters. So I built a three-stage Hybrid RAG pipeline: vector-only retrieval (Qwen3 embeddings + pgvector) for semantic matching, graph-only retrieval (Neo4j with 5,057 entities and 20,000+ relationships) for relational reasoning, and a Hybrid stage using Reciprocal Rank Fusion for real-world ambiguous queries.',
+                body: 'A simple vector search could not handle the complexity of Korean government information: documents reference each other, policies have conditions, and context matters. ' +
+                    'So I built a three-stage Hybrid RAG pipeline: vector-only retrieval (Qwen3 embeddings + pgvector) for semantic matching, graph-only retrieval (Neo4j with 5,057 entities and 20,000+ relationships) for relational reasoning, and a Hybrid stage using Reciprocal Rank Fusion for real-world ambiguous queries.',
             },
             {
                 heading: 'What the data showed',
-                body: 'Across 15 real-world visa/employment/immigration test queries: Vector-Only achieved 100% success at P@5=0.88. Graph-Only dropped to 73.3%. Hybrid reached 100% success with P@10=1.0 — the best overall result by every metric. The research confirmed that for multilingual, real-world queries, Hybrid retrieval significantly outperforms either method alone.',
+                body: 'Across 15 real-world visa/employment/immigration test queries: Vector-Only achieved 100% success at P@5=0.88. Graph-Only dropped to 73.3%. Hybrid reached 100% success with P@10=1.0, the best overall result by every metric. ' +
+                    'The research confirmed that for multilingual, real-world queries, Hybrid retrieval significantly outperforms either method alone.',
             },
         ],
         demo: null,

@@ -14,13 +14,29 @@ export default function AboutTeaser() {
     useGSAP(() => {
         const mm = gsap.matchMedia();
         mm.add('(prefers-reduced-motion: no-preference)', () => {
-            gsap.from('.at-photo-wrap', {
-                y: 60, rotate: -6, autoAlpha: 0, duration: 1, ease: 'power3.out',
-                scrollTrigger: { trigger: root.current, start: 'top 75%', once: true },
+            gsap.from('.at-photo-wrap',
+                {
+                    y: 60,
+                    rotate: -6,
+                    autoAlpha: 0,
+                    duration: 1,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: root.current,
+                        start: 'top 75%',
+                        once: true },
             });
-            gsap.from('.at-text > *', {
-                y: 30, autoAlpha: 0, duration: 0.7, stagger: 0.1, ease: 'power2.out',
-                scrollTrigger: { trigger: root.current, start: 'top 70%', once: true },
+            gsap.from('.at-text > *',
+                {
+                    y: 30,
+                    autoAlpha: 0,
+                    duration: 0.7,
+                    stagger: 0.1,
+                    ease: 'power2.out',
+                    scrollTrigger: {
+                        trigger: root.current,
+                        start: 'top 70%',
+                        once: true },
             });
         });
     }, { scope: root });

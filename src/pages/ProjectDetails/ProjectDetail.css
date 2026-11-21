@@ -1,6 +1,4 @@
-/* Project page, laid out like a case study:
-   hero → cover → sticky chapter bar → numbered chapters → screens → next project.
-   Sizes follow the reference (scaled ~85% for Fraunces, which is wider). */
+/* Project page, laid out like a case study*/
 
 .pd-page {
     min-height: 100vh;
@@ -122,8 +120,7 @@
     /* Soft band tinted with the project's own colour */
     background: color-mix(in srgb, var(--project-color, var(--accent-dark)) 14%, var(--surface));
 }
-/* Most project images are portrait, so show the whole image instead of
-   cropping and stretching it across the page (which made them blurry) */
+
 .pd-cover img {
     display: block;
     width: 100%;

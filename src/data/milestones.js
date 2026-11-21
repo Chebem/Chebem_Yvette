@@ -48,7 +48,7 @@ export const milestones = [
         title: 'Published at MITA 2025',
         org: 'Springer',
         bullets: [
-            'SMU Navigator — a bilingual campus navigation Android app',
+            'SMU Navigator, a bilingual campus navigation Android app',
             'Built for international and Korean students at Semyung University',
             'Led a team of 3 as project manager and developer · Published as capstone research',
         ],
@@ -59,7 +59,7 @@ export const milestones = [
         title: 'Published at IEIE 2025',
         org: 'DBpia · 대한전자공학회',
         bullets: [
-            'HaruBuddy — a multi-agentic RAG system for foreigners in Korea',
+            'HaruBuddy, a multi-agentic RAG system for foreigners in Korea',
             'Processed 1,602 documents, 6,494 semantic chunks across 12 Korean government sources',
             '100% tool success rate validated via DeepEval RAG Triad',
         ],
