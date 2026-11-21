@@ -67,7 +67,7 @@ export const projects = [
         github: 'https://github.com/Chebem/SMU_Navigator',
         screenshots: [
             { src: '/images/gallery/Screenshots/SmuNavigator/SplashScreen.png', caption: 'Splash screen' },
-            { src: '/images/gallery/Screenshots/SmuNavigator/HomeScreen.png', caption: 'Home — campus and city at a glance' },
+            { src: '/images/gallery/Screenshots/SmuNavigator/HomeScreen.png', caption: 'Home: campus and city at a glance' },
             { src: '/images/gallery/Screenshots/SmuNavigator/CampusScreen.png', caption: 'Campus buildings by category' },
             { src: '/images/gallery/Screenshots/SmuNavigator/CampusDetailScreen.png', caption: 'Building detail with directions' },
             { src: '/images/gallery/Screenshots/SmuNavigator/MapScreen.png', caption: 'Kakao Map with custom campus markers' },
@@ -188,7 +188,7 @@ export const projects = [
         demo: null, // TODO: link a demo copy with placeholder names, never the live invitation
         github: 'https://github.com/Chebem',
         screenshots: [
-            { src: '/images/gallery/Screenshots/CTUnveiled/Teaser.png', caption: 'Teaser — the invitation before the reveal' },
+            { src: '/images/gallery/Screenshots/CTUnveiled/Teaser.png', caption: 'Teaser: the invitation before the reveal' },
             { src: '/images/gallery/Screenshots/CTUnveiled/Scratching.png', caption: 'Scratching away the gold foil' },
             { src: '/images/gallery/Screenshots/CTUnveiled/Revealed.jpg', caption: 'The date, revealed' },
             { src: '/images/gallery/Screenshots/CTUnveiled/Events.png', caption: 'Church service and reception, with map links' },
