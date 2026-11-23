@@ -262,23 +262,19 @@
         width: 100%;
     }
 
-    /* Pinned card box that fits on screen; cards slide up inside it */
+    /* Cards stack in normal flow instead of the pinned slide-up */
     .timeline-layout { padding: 0; }
     .timeline-right {
-        height: min(78svh, 600px);
-        overflow: hidden;
+        height: auto;
+        overflow: visible;
+        flex-direction: column;
+        gap: 1.25rem;
     }
     .milestone-card {
+        position: relative;
         max-width: none;
-        padding: 1.5rem 1.25rem 1.75rem;
-        gap: 10px;
+        padding: 1.75rem 1.5rem 2rem;
     }
-    .milestone-icon {
-        width: 56px;
-        height: 56px;
-        margin-bottom: 0.25rem;
-    }
-    .milestone-icon svg { width: 40px; height: 40px; }
     .milestone-title { font-size: 1.3rem; }
     .milestone-bullets li {
         align-items: flex-start;
