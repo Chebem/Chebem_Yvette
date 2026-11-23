@@ -34,50 +34,41 @@ export default function KoreaTimeline() {
     // the section in an extra div, and with useEffect that wrapper was still there when React
     // removed the section, which crashed the page when navigating from About to Home.
     useGSAP(() => {
-        // Desktop only. On phones the pinned area is taller than the screen and cut the cards off,
-        // so there they just stack in normal flow (see the mobile CSS). Resizing switches cleanly.
+        // Desktop pins the whole section. Phones pin only the card box (sized to fit the screen,
+        // see the mobile CSS) so the cards are never cut off. Resizing switches cleanly.
         const mm = gsap.matchMedia();
-        mm.add('(min-width: 769px)', () => {
-            const cards = cardsRef.current.filter(Boolean);
-            const total = cards.length;
+        mm.add(
+            { isDesktop: '(min-width: 769px)', isMobile: '(max-width: 768px)' },
+            (ctx) => {
+                const { isMobile } = ctx.conditions;
+                const cards = cardsRef.current.filter(Boolean);
+                const total = cards.length;
 
-            // All cards except first starts below the container
-            cards.forEach((card, i) => {
-                if (i > 0) gsap.set(card, {
-                    y: 700,
-                    zIndex: i + 1
+                // Later cards sit on top of earlier ones
+                cards.forEach((card, i) => gsap.set(card, { zIndex: i + 1 }));
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: isMobile ? rightRef.current : sectionRef.current,
+                        start: isMobile ? 'center center' : 'top top',
+                        end: `+=${(total - 1) * window.innerHeight * (isMobile ? 0.6 : 0.7)}`,
+                        pin: true,
+                        anticipatePin: 1,
+                        scrub: 1,
+                        invalidateOnRefresh: true,
+                    },
                 });
-                else gsap.set(card, {
-                    y: 0,
-                    zIndex: 1
+
+                // Each card slides up from below the box (start re-measured on resize)
+                cards.forEach((card, i) => {
+                    if (i === 0) return;
+                    tl.fromTo(card,
+                        { y: () => (isMobile ? rightRef.current.offsetHeight : 700) },
+                        { y: i * (isMobile ? 12 : 20), ease: 'none', duration: 1 },
+                        i - 1);
                 });
-            });
-
-
-            // Pin the right column and animate cards
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: sectionRef.current,
-                    start: 'top top',
-                    end: `+=${(total - 1) * window.innerHeight * 0.7}`,
-                    pin: true,
-                    anticipatePin: 1,
-                    scrub: 1,
-                    invalidateOnRefresh: true,
-                },
-            });
-
-            // Each card slides up from below
-            cards.forEach((card, i) => {
-                if (i === 0) return;
-                tl.to(card, {
-                    y: i * 20,
-                    ease: 'none',
-                    duration: 1,
-                }, i - 1);
-            });
-
-        });
+            }
+        );
     }, { scope: sectionRef });
 
     return (

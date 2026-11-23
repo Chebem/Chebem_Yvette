@@ -61,9 +61,9 @@ export const ui = {
         'skills.korean': 'Korean (Advanced)',
 
         // Korea timeline
-        'timeline.title1': '4 Years',
+        'timeline.title1': '5 Years',
         'timeline.title2': 'in Korea',
-        'timeline.subtitle': 'From Lagos to Seoul a chapter of language, learning, and growth.',
+        'timeline.subtitle': 'From Lagos to Seoul: a chapter of language, learning, and growth.',
         'timeline.milestones': 'milestones',
 
         // Photo board
@@ -205,7 +205,7 @@ export const ui = {
         'skills.korean': '한국어 (고급)',
 
         'timeline.title1': '한국에서의',
-        'timeline.title2': '4년',
+        'timeline.title2': '5년',
         'timeline.subtitle': '라고스에서 서울까지, 언어와 배움, 그리고 성장의 시간.',
         'timeline.milestones': '개의 발자취',
 
