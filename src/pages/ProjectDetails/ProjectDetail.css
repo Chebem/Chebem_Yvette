@@ -237,6 +237,17 @@
     gap: 12px;
 }
 
+/* Small text link under the buttons (SMU Navigator's privacy policy) */
+.pd-privacy {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+.pd-privacy:hover { color: var(--accent-text); }
+
 /* Story sections */
 .pd-story h3 {
     font-size: clamp(24px, 2.3vw, 36px);

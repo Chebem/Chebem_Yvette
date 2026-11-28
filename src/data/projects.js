@@ -65,6 +65,7 @@ export const projects = [
         ],
         demo: null,
         github: 'https://github.com/Chebem/SMU_Navigator',
+        privacy: '/smu-navigator/privacy', // static page in public/, needed for Google Play
         screenshots: [
             { src: '/images/gallery/Screenshots/SmuNavigator/SplashScreen.png', caption: 'Splash screen' },
             { src: '/images/gallery/Screenshots/SmuNavigator/HomeScreen.png', caption: 'Home: campus and city at a glance' },
