@@ -237,6 +237,13 @@ export default function ProjectDetail() {
                                 <HoverButton label={t('pd.btnPaper')} onClick={() => window.open(project.paper, '_blank')} />
                             )}
                         </div>
+
+                        {/* Plain <a>, not <Link>: the policy is a static file outside the React app */}
+                        {project.privacy && (
+                            <a className="pd-privacy pd-reveal" href={project.privacy} target="_blank" rel="noopener noreferrer">
+                                {t('pd.privacy')}
+                            </a>
+                        )}
                     </div>
                 </section>
 
